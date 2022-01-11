@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Provider} from "react-redux"
+import { Provider } from "react-redux";
 import "antd/dist/antd.css";
 import Views from "./views";
-import store from "./redux/store"
+import store from "./redux/store";
 
 function App() {
   return (

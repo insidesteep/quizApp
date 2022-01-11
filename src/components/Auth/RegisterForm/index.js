@@ -169,7 +169,7 @@ const RegisterForm = ({ localization = true, intl }) => {
   return (
     <Form layout="vertical" size="large" form={form}>
       <Row gutter={8}>
-        <Col span={8}>
+        <Col lg={8} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.lastName)}
             name="lastname"
@@ -182,7 +182,7 @@ const RegisterForm = ({ localization = true, intl }) => {
             />
           </Form.Item>
         </Col>{" "}
-        <Col span={8}>
+        <Col lg={8} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.firstName)}
             name="firstname"
@@ -195,7 +195,7 @@ const RegisterForm = ({ localization = true, intl }) => {
             />
           </Form.Item>
         </Col>{" "}
-        <Col span={8}>
+        <Col lg={8} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.middleName)}
             name="fathername"
@@ -209,13 +209,12 @@ const RegisterForm = ({ localization = true, intl }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={16}>
-        <Col span={12}>
+      <Row gutter={16} >
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.photo)}
             name="student_photo"
             rules={rules.photo}
-            style={{ height: "100%" }}
             className="auth-upload"
           >
             <Upload.Dragger
@@ -248,7 +247,7 @@ const RegisterForm = ({ localization = true, intl }) => {
             </Upload.Dragger>
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.email)}
             name="email"
@@ -276,7 +275,7 @@ const RegisterForm = ({ localization = true, intl }) => {
         </Col>
       </Row>
       <Row gutter={16}>
-        <Col span={12}>
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.phone)}
             name="phone_number"
@@ -291,7 +290,7 @@ const RegisterForm = ({ localization = true, intl }) => {
           </Form.Item>
         </Col>
 
-        <Col span={12}>
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.institute)}
             name="institute_name"
@@ -304,7 +303,7 @@ const RegisterForm = ({ localization = true, intl }) => {
             />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.faculty)}
             name="faculty"
@@ -318,7 +317,7 @@ const RegisterForm = ({ localization = true, intl }) => {
           </Form.Item>
         </Col>
 
-        <Col span={12}>
+        <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.subject)}
             name="subject"
@@ -333,13 +332,14 @@ const RegisterForm = ({ localization = true, intl }) => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col xs={24}>
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               onClick={onFinish}
               loading={loading}
+              style={{width: "100%"}}
             >
               {setLocale(localization, authLang.registration.submit)}
             </Button>

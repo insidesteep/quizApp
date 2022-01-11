@@ -1,16 +1,48 @@
-body {
-  min-height: 100vh !important;
+html {
+  height: 100%;
+  width: 100%;
 }
 
-#root,
-.App {
-  height: 100%;
+body {
+  min-height: 100vh !important;
 }
 
 .auth-container {
   height: 100%;
 }
 
+.auth-upload {
+  height: 100%;
+}
+
 .text-primary {
   color: rgb(62, 121, 247) !important;
+}
+
+.auth-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+  background: url(https://isomorphic.redq.io/static/media/sign.adf5846b.jpg)
+    center/cover no-repeat;
+}
+
+@media screen and (max-width: 576px) {
+  .auth-upload {
+    height: inherit;
+  }
+}
+
+.auth-wrapper::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+  right: inherit;
 }
