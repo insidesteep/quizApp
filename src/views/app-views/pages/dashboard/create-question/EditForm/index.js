@@ -4,7 +4,7 @@ import {
   CheckOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createQuestion,
@@ -51,7 +51,7 @@ const rules = {
 //   url: "https://user-images.githubusercontent.com/16330002/29263294-83b0c562-811b-11e7-9218-02d0b5b9097e.png",
 // }
 
-const CreateForm = ({ lang }) => {
+const EditForm = ({ lang, questionNum }) => {
   const [imgList, setImgList] = useState([]);
   const [answerImg, setAnswerImg] = useState({
     1: [],
@@ -60,11 +60,68 @@ const CreateForm = ({ lang }) => {
     4: [],
   });
   const [form] = Form.useForm();
-  const { questionCount, loadingQuestionCount, loadingCreate } = useSelector(
-    (state) => state.question
-  );
+  const { questionCount, loadingQuestionCount, loadingCreate, questionData } =
+    useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (questionData.data) {
+      form.setFieldsValue({
+        question: questionData.data.name,
+        answer_1: {
+          answer: questionData.data.answer_1,
+        },
+        answer_2: {
+          answer: questionData.data.answer_2,
+        },
+        answer_3: {
+          answer: questionData.data.answer_3,
+        },
+        answer_4: {
+          answer: questionData.data.answer_4,
+        },
+      });
+
+      const answersImgList = {};
+
+      for (let i = 1; i <= 4; i++) {
+        if (questionData.data[`answer_img_${i}`]) {
+          answersImgList[i] = [
+            {
+              uid: i,
+              name: "",
+              status: "done",
+              url: `https://pizzamizza.uz/temp/${
+                questionData.data[`answer_img_${i}`]
+              }`,
+            },
+          ];
+        } else {
+          answersImgList[i] = [];
+        }
+      }
+
+      const imgList = [];
+
+      for (let i = 1; i <= 3; i++) {
+        if (questionData.data[`img_url_${i}`]) {
+          imgList.push({
+            uid: i,
+            name: "",
+            status: "done",
+            url: `https://pizzamizza.uz/temp/${
+              questionData.data[`img_url_${i}`]
+            }`,
+          });
+        }
+      }
+
+      setImgList(imgList);
+
+      setAnswerImg(answersImgList);
+    }
+  }, [questionData.data]);
 
   const onChangeImg = ({ fileList: newImgList }) => {
     setImgList(newImgList);
@@ -78,10 +135,11 @@ const CreateForm = ({ lang }) => {
     form
       .validateFields()
       .then((values) => {
-        dispatch(showLoadingCreate());
-        dispatch(
-          createQuestion({ ...values, lang, subjectId: userInfo.subjectId })
-        );
+          console.log(values)
+        // dispatch(showLoadingCreate());
+        // dispatch(
+        //   createQuestion({ ...values, lang, subjectId: userInfo.subjectId })
+        // );
       })
       .catch((error) => console.log(error));
   };
@@ -89,7 +147,7 @@ const CreateForm = ({ lang }) => {
   return (
     <Spin spinning={loadingQuestionCount || loadingCreate}>
       <Form layout="vertical" form={form}>
-        <Card title={`Question №${+questionCount + 1}`}>
+        <Card title={`Question №${questionNum}`}>
           <Form.Item name="question" rules={rules.question}>
             <Input size="large" placeholder="Question" />
           </Form.Item>
@@ -267,4 +325,4 @@ const CreateForm = ({ lang }) => {
   );
 };
 
-export default CreateForm;
+export default EditForm;

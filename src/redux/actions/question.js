@@ -6,6 +6,10 @@ import {
   CREATE_QUESTION,
   HIDE_LOADING_CREATE,
   SET_TEST_INFO_ID,
+  GET_QUESTION,
+  SET_QUESTION,
+  SHOW_LOADING_QUESTION,
+  HIDE_LOADING_QUESTION,
 } from "../constants/question";
 
 export const fetchQuestionCount = (data) => {
@@ -19,6 +23,20 @@ export const createQuestion = (data) => {
   return {
     type: CREATE_QUESTION,
     payload: data,
+  };
+};
+
+export const getQuestion = (data, cb) => {
+  return {
+    type: GET_QUESTION,
+    payload: { data, cb },
+  };
+};
+
+export const setQuestion = (question) => {
+  return {
+    type: SET_QUESTION,
+    payload: question,
   };
 };
 
@@ -53,5 +71,17 @@ export const showLoadingCreate = () => {
 export const hideLoadingCreate = () => {
   return {
     type: HIDE_LOADING_CREATE,
+  };
+};
+
+export const showLoadingQuestion = () => {
+  return {
+    type: SHOW_LOADING_QUESTION,
+  };
+};
+
+export const hideLoadingQuestion = () => {
+  return {
+    type: HIDE_LOADING_QUESTION,
   };
 };

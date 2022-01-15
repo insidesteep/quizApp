@@ -8,6 +8,7 @@ import {
   fetchQuestionCount,
 } from "../../../../../redux/actions/question";
 import ListQuestions from "./ListQuestions.js/index.js";
+import EditForm from "./EditForm/index.js";
 
 const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
@@ -16,6 +17,7 @@ const CreateQuestion = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [lang, setLang] = useState("1");
+  const [selectedQuestion, setSelectedQuestion] = useState(0);
 
   useEffect(() => {
     if (lang && userInfo.subjectId) {
@@ -49,18 +51,35 @@ const CreateQuestion = () => {
         <TabPane tab="O'zbek" key={1}>
           <Row gutter={8}>
             <Col span={12}>
-              <CreateForm lang={1} />
+              {selectedQuestion ? <EditForm questionNum={selectedQuestion}/> : <CreateForm lang={1} />}
             </Col>
             <Col span={12}>
-              <ListQuestions />
+              <ListQuestions
+                lang={1}
+                setSelectedQuestion={setSelectedQuestion}
+              />
             </Col>
           </Row>
         </TabPane>
         <TabPane tab="Русский" key={2}>
-          <CreateForm lang={2} />
+          <Row gutter={8}>
+            <Col span={12}>
+              <CreateForm lang={2} />
+            </Col>
+            <Col span={12}>
+              <ListQuestions lang={2} />
+            </Col>
+          </Row>
         </TabPane>
         <TabPane tab="English" key={3}>
-          <CreateForm lang={3} />
+          <Row gutter={8}>
+            <Col span={12}>
+              <CreateForm lang={3} />
+            </Col>
+            <Col span={12}>
+              <ListQuestions lang={3} />
+            </Col>
+          </Row>
         </TabPane>
       </Tabs>
     </Col>

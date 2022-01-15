@@ -1,8 +1,14 @@
 import { message } from "antd";
 import { all, takeEvery, put, fork, call } from "redux-saga/effects";
-import { CREATE_QUESTION, FETCH_QUESTION_COUNT } from "../constants/question";
+import {
+  CREATE_QUESTION,
+  FETCH_QUESTION_COUNT,
+  GET_QUESTION,
+} from "../constants/question";
 import {
   hideLoadingCreate,
+  hideLoadingQuestion,
+  setQuestion,
   setQuestionCount,
   setTestInfoId,
 } from "../actions/question";
@@ -101,6 +107,26 @@ export function* createQuestion() {
   });
 }
 
+export function* getQuestion() {
+  yield takeEvery(GET_QUESTION, function* ({ payload }) {
+    const { data, cb } = payload;
+
+    try {
+      const question = yield call(QuestionService.getById, data);
+
+      yield put(setQuestion(question));
+
+      cb();
+    } catch (error) {
+      yield put(hideLoadingQuestion());
+    }
+  });
+}
+
 export default function* rootSaga() {
-  yield all([fork(fetchQuestionCount), fork(createQuestion)]);
+  yield all([
+    fork(fetchQuestionCount),
+    fork(createQuestion),
+    fork(getQuestion),
+  ]);
 }

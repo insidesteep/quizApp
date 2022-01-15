@@ -21,4 +21,12 @@ QuestionService.create = function (data) {
   });
 };
 
+QuestionService.getById = function (data) {
+  return fetch({
+    url: "/view_test.php",
+    method: "post",
+    data,
+  });
+};
+
 export default QuestionService;
