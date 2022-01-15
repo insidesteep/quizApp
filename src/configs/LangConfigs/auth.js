@@ -51,6 +51,12 @@ const auth = {
       facultyRequired: "registration.faculty.rule.required",
       subjectRequired: "registration.subject.rule.required",
     },
+    successful: {
+      title: "registration.successful.title",
+      subTitle: "registration.successful.subtitle",
+      login: "registration.successful.login",
+      password: "registration.successful.password",
+    },
   },
 };
 

@@ -3,15 +3,32 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { injectIntl } from "react-intl";
 import IntlMessage from "../../IntlMessage";
 import authLang from "../../../configs/LangConfigs/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { showLoading, signIn } from "../../../redux/actions/auth";
 
 const setLocale = (isLocaleOn, localeKey) =>
   isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
 
 const LoginForm = ({ localization = true, intl }) => {
-  console.log(intl);
+  const { loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  const onFinish = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        console.log(values);
+
+        console.log(showLoading, signIn);
+        // dispatch(showLoading);
+        dispatch(signIn(values));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <Form layout="vertical" size="large" name="login">
+    <Form layout="vertical" size="large" name="login" form={form}>
       <Row>
         <Col span={24}>
           <Form.Item
@@ -20,11 +37,17 @@ const LoginForm = ({ localization = true, intl }) => {
             rules={[
               {
                 required: true,
-                message: setLocale(localization, authLang.login.rules.emailRequired),
+                message: setLocale(
+                  localization,
+                  authLang.login.rules.emailRequired
+                ),
               },
               {
                 type: "email",
-                message: setLocale(localization, authLang.login.rules.emailValidate),
+                message: setLocale(
+                  localization,
+                  authLang.login.rules.emailValidate
+                ),
               },
             ]}
           >
@@ -40,7 +63,15 @@ const LoginForm = ({ localization = true, intl }) => {
           <Form.Item
             label={setLocale(localization, authLang.login.password)}
             name="password"
-            rules={[{ required: true, message: setLocale(localization, authLang.login.rules.passwordRequired) }]}
+            rules={[
+              {
+                required: true,
+                message: setLocale(
+                  localization,
+                  authLang.login.rules.passwordRequired
+                ),
+              },
+            ]}
           >
             <Input.Password
               prefix={<LockOutlined className="text-primary" />}
@@ -55,7 +86,12 @@ const LoginForm = ({ localization = true, intl }) => {
       <Row>
         <Col>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={onFinish}
+              loading={loading}
+            >
               {setLocale(localization, authLang.login.submit)}
             </Button>
           </Form.Item>

@@ -9,3 +9,4 @@ export const SHOW_AUTH_MESSAGE = "SHOW_AUTH_MESSAGE";
 export const HIDE_AUTH_MESSAGE = "HIDE_AUTH_MESSAGE";
 export const SHOW_LOADING = "SHOW_LOADING";
 export const AUTH_TOKEN = "auth_token";
+export const SET_TERM_REG_INFO = "SET_TERM_REG_INFO";

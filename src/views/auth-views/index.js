@@ -1,17 +1,21 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import Loader from "../../components/Loader.js";
 // import Loading from "components/shared-components/Loading";
 import { AUTH_PREFIX_PATH } from "../../configs/AppConfig";
 
-const Loading = () => <h1>Loading</h1>;
-
 export const AuthViews = () => {
   return (
-    <Suspense fallback={<Loading cover="page" />}>
+    <Suspense fallback={<Loader />}>
       <Switch>
         <Route
+          exact
           path={`${AUTH_PREFIX_PATH}`}
           component={lazy(() => import(`./pages/auth`))}
+        />
+        <Route
+          path={`${AUTH_PREFIX_PATH}/successful-registration`}
+          component={lazy(() => import(`./pages/successful-registration`))}
         />
         {/* <Route
           path={`${AUTH_PREFIX_PATH}/login-1`}

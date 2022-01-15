@@ -9,6 +9,7 @@ import {
   SIGNUP_SUCCESS,
   SHOW_LOADING,
   AUTHORIZATION,
+  SET_TERM_REG_INFO,
 } from "../constants/auth";
 
 export const signIn = (user) => {
@@ -23,7 +24,6 @@ export const authenticated = (user) => {
     type: AUTHENTICATED,
     payload: {
       token: user.token,
-      defaultOrg: user.defaultOrg,
       userInfo: user.userInfo,
     },
   };
@@ -47,10 +47,10 @@ export const signOutSuccess = () => {
   };
 };
 
-export const signUp = (user) => {
+export const signUp = (values, history) => {
   return {
     type: SIGNUP,
-    payload: user,
+    payload: { values, history },
   };
 };
 
@@ -80,5 +80,12 @@ export const hideAuthMessage = () => {
 export const showLoading = () => {
   return {
     type: SHOW_LOADING,
+  };
+};
+
+export const setTermRegInfo = (data) => {
+  return {
+    type: SET_TERM_REG_INFO,
+    payload: data,
   };
 };

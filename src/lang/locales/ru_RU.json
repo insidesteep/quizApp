@@ -43,5 +43,10 @@
     "registration.subject": "Предмет",
     "registration.subject.placeholder": "Выберите предмет",
     "registration.subject.rule.required": "Пожалуйста, выберите предмет",
-    "registration.submit": "Зарегистрироваться"
+    "registration.submit": "Зарегистрироваться",
+
+    "registration.successful.title": "Вы успешно зарегистрированы",
+    "registration.successful.subtitle": "Вы стали участником Международной студенческой онлайн олимпиады студентов медицинских вузов «От учения Абу Али ибн Сино - до Третьего ренессанса», которая пройдет 21 января 2022 года.",
+    "registration.successful.login": "Ваш логин",
+    "registration.successful.password": "Ваш пароль"
 }

@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { Route, Switch, Redirect, withRouter, Routes } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  withRouter,
+  useHistory,
+} from "react-router-dom";
 import { connect } from "react-redux";
 import AppLayout from "../layouts/app-layout";
 import AuthLayout from "../layouts/auth-layout";
@@ -12,6 +18,7 @@ import { authorization } from "../redux/actions/auth";
 import { onLocaleChange } from "../redux/actions/locale";
 
 function RouteInterceptor({ children, isAuthenticated, ...rest }) {
+  console.log(isAuthenticated);
   return (
     <Route
       {...rest}
@@ -32,9 +39,17 @@ function RouteInterceptor({ children, isAuthenticated, ...rest }) {
 }
 
 export const Views = (props) => {
-  const { localeValue, token, location, direction, authorization, onLocaleChange } = props;
+  const {
+    localeValue,
+    token,
+    userInfo,
+    location,
+    direction,
+    authorization,
+    onLocaleChange,
+  } = props;
   const currentAppLocale = AppLocale[localeValue];
-
+  const history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem("auth_token")) {
@@ -42,11 +57,30 @@ export const Views = (props) => {
     }
 
     if (localStorage.getItem("locale")) {
-      onLocaleChange(localStorage.getItem("locale"))
+      onLocaleChange(localStorage.getItem("locale"));
     }
   }, []);
 
+  useEffect(() => {
+    if (token !== null) {
+      if (userInfo.role === "2") {
+        history.push(`${APP_PREFIX_PATH}/dashboard`);
+      }
+
+      if (userInfo.role === "1") {
+        history.push(`${APP_PREFIX_PATH}`);
+      }
+    }
+    // if (showMessage) {
+    //   setTimeout(() => {
+    //     hideAuthMessage();
+    //   }, 3000);
+    // }
+  }, []);
+
   //   useBodyClass(`dir-${direction}`);
+
+  console.log("VIEWS", token);
   return (
     <IntlProvider
       locale={currentAppLocale.locale}
@@ -70,15 +104,15 @@ export const Views = (props) => {
 };
 
 const mapStateToProps = ({ auth, locale }) => {
-  const { token } = auth;
+  const { token, userInfo } = auth;
   const { localeValue } = locale;
 
-  return { token, localeValue };
+  return { token, userInfo, localeValue };
 };
 
 const mapDispatchToProps = {
   authorization,
-  onLocaleChange
+  onLocaleChange,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Views));

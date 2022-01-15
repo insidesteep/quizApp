@@ -43,5 +43,10 @@
     "registration.subject": "Subject",
     "registration.subject.placeholder": "Select subject",  
     "registration.subject.rule.required": "Please select a subject",
-    "registration.submit": "Register now"
+    "registration.submit": "Register now",
+
+    "registration.successful.title": "You have successfully registered",
+    "registration.successful.subtitle": "You have become a participant of the International Online Student Olympiad for Medical University Students 'From the Teachings of Abu Ali ibn Sino to the Third Renaissance', which will be held on January 21, 2022",
+    "registration.successful.login": "Your login",
+    "registration.successful.password": "Your password"
 }

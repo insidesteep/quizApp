@@ -7,6 +7,11 @@ body {
   min-height: 100vh !important;
 }
 
+#root,
+.App {
+  height: 100%;
+}
+
 .auth-container {
   height: 100%;
 }
@@ -24,8 +29,7 @@ body {
   min-height: 100vh;
   height: 100vh;
   position: relative;
-  background: url(https://isomorphic.redq.io/static/media/sign.adf5846b.jpg)
-    center/cover no-repeat;
+  background: url(../public//img/bg-students.jpg) center/cover no-repeat;
 }
 
 @media screen and (max-width: 576px) {
@@ -45,4 +49,108 @@ body {
   top: 0px;
   left: 0px;
   right: inherit;
+}
+
+.dashboard {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.dashboard .ant-layout {
+  height: 100%;
+}
+
+.dashboard .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.dashboard .trigger:hover {
+  color: #1890ff;
+}
+
+.dashboard .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.dashboard .site-layout .site-layout-background {
+  background: #fff;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.answer__img {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.answer__img input {
+}
+
+.answer__img .ant-upload-select-picture-card {
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0px !important;
+}
+
+.answer__img .ant-upload-list-picture-card-container {
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0px !important;
+}
+
+.answer__img .ant-upload-list-item {
+  padding: 1px !important;
+}
+
+.answer__img .ant-upload-list-item-actions a {
+  display: none;
+}
+
+.answer__img .ant-upload-picture-card-wrapper {
+  width: auto;
+}
+
+.answer > span:first-child {
+  margin-right: 1rem;
+}
+
+.answer .ant-tag {
+  margin-right: 0;
+}
+
+.question__item {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  color: #000000d9;
+  border: 1px solid #d9d9d9;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.question__item.question__item--exist {
+  background: #87d068;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.question__item.question__item--current {
+  background: #108ee9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }

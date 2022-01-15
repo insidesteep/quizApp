@@ -6,6 +6,7 @@ import {
   SIGNOUT_SUCCESS,
   SIGNUP_SUCCESS,
   SHOW_LOADING,
+  SET_TERM_REG_INFO,
 } from "../constants/auth";
 
 const initState = {
@@ -14,11 +15,14 @@ const initState = {
   showMessage: false,
   redirect: "",
   token: localStorage.getItem(AUTH_TOKEN),
-  defaultOrg: parseInt(localStorage.getItem("default_organization")),
   userInfo: {
     firstName: "",
     lastName: "",
+    middleName: "",
+    role: null,
+    subjectName: ""
   },
+  termRegData: null,
 };
 
 const auth = (state = initState, action) => {
@@ -29,7 +33,6 @@ const auth = (state = initState, action) => {
         loading: false,
         redirect: "/",
         token: action.payload.token,
-        defaultOrg: action.payload.defaultOrg,
         userInfo: action.payload.userInfo,
       };
     case SHOW_AUTH_MESSAGE:
@@ -48,30 +51,33 @@ const auth = (state = initState, action) => {
         message: {},
         showMessage: false,
       };
-    case SIGNOUT_SUCCESS: {
+    case SIGNOUT_SUCCESS:
       return {
         ...state,
         token: null,
-        defaultOrg: null,
         redirect: "/",
         loading: false,
       };
-    }
-    case SIGNUP_SUCCESS: {
+
+    case SIGNUP_SUCCESS:
       return {
         ...state,
         loading: false,
         token: action.token,
       };
-    }
+
+    case SET_TERM_REG_INFO:
+      return {
+        ...state,
+        termRegData: action.payload,
+      };
+
     case SHOW_LOADING: {
       return {
         ...state,
         loading: true,
       };
     }
-
-
 
     default:
       return state;

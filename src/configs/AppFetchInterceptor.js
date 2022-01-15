@@ -59,7 +59,6 @@ service.interceptors.response.use(
 
       //"The page you were trying to access cannot be loaded until you are logged in";
       localStorage.removeItem(AUTH_TOKEN);
-      localStorage.removeItem("default_organization");
       // history.push(ENTRY_ROUTE);
       window.location.reload();
     }

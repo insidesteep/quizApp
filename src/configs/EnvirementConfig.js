@@ -1,10 +1,19 @@
 const dev = {
-  API_ENDPOINT_URL: "https://olimpiada.bsmi.uz/api",
+  API_ENDPOINT_URL: "https://pizzamizza.uz/api",
 };
 
 const prod = {
-  API_ENDPOINT_URL: "https://api.prod.com",
+  API_ENDPOINT_URL: "https://pizzamizza.uz/api",
 };
+
+// const dev = {
+//   API_ENDPOINT_URL: "/api",
+// };
+
+// const prod = {
+//   API_ENDPOINT_URL: "/api",
+// };
+
 
 const test = {
   API_ENDPOINT_URL: "https://api.test.com",

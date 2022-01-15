@@ -10,6 +10,7 @@ export const AuthLayout = () => {
   //   if (status === 'loading') {
   //     return <Loading cover="page" />;
   //   }
+  console.log("AUTH")
 
   return (
     <div className="auth-container">

@@ -43,5 +43,10 @@
     "registration.subject": "Fan",
     "registration.subject.placeholder": "Faanni tanlang",
     "registration.subject.rule.required": "Iltimos, faningizni tanlang",
-    "registration.submit": "Ro'yxatdan o'tish"
+    "registration.submit": "Ro'yxatdan o'tish",
+
+    "registration.successful.title": "Siz muvaffaqiyatli ro'yxatdan o'tdingiz",
+    "registration.successful.subtitle": "Siz, “Abu Ali ibn Sino ta'limotidan – uchinchi renesansgacha”, 2022 yil 21 yanvarda bo'lib o'tadigan, tibbiyot oliy oquv yurtlari bo'yicha, xalqaro talabalar onlayn olimpiadasi, ishtirokchisi bo'ldingiz",
+    "registration.successful.login": "Loginingiz",
+    "registration.successful.password": "Parolingiz"
 }

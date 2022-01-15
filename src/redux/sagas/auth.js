@@ -11,6 +11,7 @@ import {
   authenticated,
   signUpSuccess,
   signOutSuccess,
+  setTermRegInfo,
 } from "../actions/auth";
 
 // import { setOrganization } from "../actions/Organization";
@@ -38,15 +39,50 @@ export function* signOut() {
 
 export function* signUp() {
   yield takeEvery(SIGNUP, function* ({ payload }) {
-    try {
-      const user = yield call(JwtAuthService.signUp, payload);
+    console.log(payload);
+    const { values, history } = payload;
 
-      if (user.message) {
-        yield put(showAuthMessage("success", user.message));
-      } else {
-        localStorage.setItem(AUTH_TOKEN, user.user.uid);
-        yield put(signUpSuccess(user.user.uid));
-      }
+    const {
+      firstname,
+      fathername,
+      lastname,
+      email,
+      password,
+      student_photo,
+      phone_number,
+      institute_name,
+      faculty,
+      subject,
+    } = values;
+
+    const formData = new FormData();
+
+    formData.append("firstname", firstname);
+    formData.append("fathername", fathername);
+    formData.append("lastname", lastname);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("student_photo", student_photo.file.originFileObj);
+    formData.append("phone_number", phone_number);
+    formData.append("institute_name", institute_name);
+    formData.append("faculty", faculty);
+    formData.append("subject", subject);
+
+    try {
+      const user = yield call(JwtAuthService.signUp, formData);
+
+      console.log(user);
+
+      // if (user.message) {
+      //   yield put(showAuthMessage("success", user.message));
+      // } else {
+      //   localStorage.setItem(AUTH_TOKEN, user.user.uid);
+      //   yield put(signUpSuccess(user.user.uid));
+      // }
+
+      yield put(setTermRegInfo({ email, password }));
+
+      history.push("/auth/successful-registration");
     } catch (error) {
       yield put(showAuthMessage("error", error.response.data.message));
     }
@@ -55,22 +91,23 @@ export function* signUp() {
 
 export function* signIn() {
   yield takeEvery(SIGNIN, function* ({ payload }) {
+    console.log(333);
     const { email, password } = payload;
+
     try {
       const user = yield call(JwtAuthService.login, { email, password });
 
       localStorage.setItem(AUTH_TOKEN, user.jwt);
-      localStorage.setItem(
-        "default_organization",
-        parseInt(user.default_organization)
-      );
       yield put(
         authenticated({
           token: user.jwt,
-          defaultOrg: parseInt(user.default_organization),
           userInfo: {
             firstName: user.firstname,
             lastName: user.lastname,
+            middleName: user.fathername,
+            role: user.role,
+            subjectName: user.subject_name,
+            subjectId: user.subject_id
           },
         })
       );
@@ -90,17 +127,16 @@ export function* authorization() {
       const user = yield call(JwtAuthService.authorization);
 
       localStorage.setItem(AUTH_TOKEN, user.jwt);
-      localStorage.setItem(
-        "default_organization",
-        parseInt(user.default_organization)
-      );
       yield put(
         authenticated({
           token: user.jwt,
-          defaultOrg: parseInt(user.default_organization),
           userInfo: {
             firstName: user.firstname,
             lastName: user.lastname,
+            middleName: user.fathername,
+            role: user.role,
+            subjectName: user.subject_name,
+            subjectId: user.subject_id
           },
         })
       );

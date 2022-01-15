@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, Card, Row, Col, Typography, Radio, Tooltip } from "antd";
+import { PhoneTwoTone } from "@ant-design/icons";
 import Flex from "../../../../components/Flex";
 import RegisterForm from "../../../../components/Auth/RegisterForm";
 import LoginForm from "../../../../components/Auth/LoginForm";
@@ -7,17 +8,20 @@ import IntlMessage from "../../../../components/IntlMessage";
 import authLang from "../../../../configs/LangConfigs/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { onLocaleChange } from "../../../../redux/actions/locale";
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { APP_PREFIX_PATH } from "../../../../configs/AppConfig";
 const { Sider, Content } = Layout;
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
 
 const setLocale = (isLocaleOn, localeKey) =>
   isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
 
 const AuthPage = ({ localization = true }) => {
-  const [authState, setAuthState] = useState("");
+  const [authState, setAuthState] = useState("login");
   const { localeValue } = useSelector((state) => state.locale);
-  console.log();
+  const { token, userInfo } = useSelector((state) => state.auth);
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
   const handleChangeAuthState = (e) => {
@@ -27,6 +31,8 @@ const AuthPage = ({ localization = true }) => {
   const handleChangeLocale = (e) => {
     dispatch(onLocaleChange(e.target.value));
   };
+
+
 
   return (
     <div className="auth-wrapper">
@@ -44,7 +50,21 @@ const AuthPage = ({ localization = true }) => {
             overflowY: "auto",
           }}
         >
-          <div style={{ position: "absolute", right: "15px", top: "15px" }}>
+          <div
+            style={{
+              width: "100%",
+              position: "absolute",
+              left: "0",
+              top: "0",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "1rem 3rem",
+            }}
+          >
+            <Paragraph style={{ margin: 0 }}>
+              <PhoneTwoTone /> +998 (99) 703-11-01
+            </Paragraph>
             <Radio.Group
               size="small"
               defaultValue={localeValue}
@@ -72,16 +92,14 @@ const AuthPage = ({ localization = true }) => {
           <Row gutter={5}>
             <Col>
               <Radio.Group
-                defaultValue="registration"
+                defaultValue="login"
                 buttonStyle="solid"
                 onChange={handleChangeAuthState}
               >
-                <Tooltip title="Coming Soon">
-                  <Radio.Button value="login" disabled>
-                    {setLocale(localization, authLang.switchAuth.login)}
-                  </Radio.Button>
-                </Tooltip>
-                ,
+                <Radio.Button value="login">
+                  {setLocale(localization, authLang.switchAuth.login)}
+                </Radio.Button>
+
                 <Radio.Button value="registration">
                   {setLocale(localization, authLang.switchAuth.registration)}
                 </Radio.Button>

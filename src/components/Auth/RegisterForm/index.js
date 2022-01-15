@@ -1,4 +1,4 @@
-import { Form, Row, Col, Input, Upload, Button } from "antd";
+import { Form, Row, Col, Input, Upload, Button, Select, Spin } from "antd";
 import {
   PictureOutlined,
   UserOutlined,
@@ -11,7 +11,12 @@ import IntlMessage from "../../IntlMessage";
 import authLang from "../../../configs/LangConfigs/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp, showLoading } from "../../../redux/actions/auth";
+import {
+  fetchSubjects,
+  showLoadingSubjects,
+} from "../../../redux/actions/subject";
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const setLocale = (isLocaleOn, localeKey) =>
   isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
@@ -20,7 +25,11 @@ const RegisterForm = ({ localization = true, intl }) => {
   const [photo, setPhoto] = useState("");
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+  const { loading: subjectsLoading, data: subjects } = useSelector(
+    (state) => state.subject
+  );
   const [form] = Form.useForm();
+  const history = useHistory();
 
   const rules = {
     firstName: [
@@ -122,41 +131,19 @@ const RegisterForm = ({ localization = true, intl }) => {
     ],
   };
 
+  const onGetSubjects = () => {
+    dispatch(showLoadingSubjects());
+    dispatch(fetchSubjects());
+  };
+
   const onFinish = () => {
     form
       .validateFields()
-      .then(
-        ({
-          email,
-          password,
-          faculty,
-          fathername,
-          firstname,
-          institute_name,
-          lastname,
-          phone_number,
-          student_photo,
-          subject,
-        }) => {
-          dispatch(showLoading());
+      .then((values) => {
+        dispatch(showLoading());
 
-          const formData = new FormData();
-          console.log(student_photo);
-
-          formData.append("firstname", firstname);
-          formData.append("fathername", fathername);
-          formData.append("lastname", lastname);
-          formData.append("email", email);
-          formData.append("password", password);
-          formData.append("student_photo", student_photo.file.originFileObj);
-          formData.append("phone_number", phone_number);
-          formData.append("institute_name", institute_name);
-          formData.append("faculty", faculty);
-          formData.append("subject", subject);
-
-          dispatch(signUp(formData));
-        }
-      )
+        dispatch(signUp(values, history));
+      })
       .catch(() => {});
   };
 
@@ -209,7 +196,7 @@ const RegisterForm = ({ localization = true, intl }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={16} >
+      <Row gutter={16}>
         <Col lg={12} xs={24}>
           <Form.Item
             label={setLocale(localization, authLang.registration.photo)}
@@ -323,11 +310,25 @@ const RegisterForm = ({ localization = true, intl }) => {
             name="subject"
             rules={rules.subject}
           >
-            <Input
+            <Select
               placeholder={intl.formatMessage({
                 id: "registration.subject.placeholder",
               })}
-            />
+              onClick={onGetSubjects}
+              loading={subjectsLoading}
+              notFoundContent={subjectsLoading ? <Spin /> : null}
+            >
+              {subjects.map((subj) => (
+                <Select.Option key={subj.id} value={subj.id}>
+                  {subj.name}
+                </Select.Option>
+              ))}
+            </Select>
+            {/* <Input
+              placeholder={intl.formatMessage({
+                id: "registration.subject.placeholder",
+              })}
+            /> */}
           </Form.Item>
         </Col>
       </Row>
@@ -339,7 +340,7 @@ const RegisterForm = ({ localization = true, intl }) => {
               htmlType="submit"
               onClick={onFinish}
               loading={loading}
-              style={{width: "100%"}}
+              style={{ width: "100%" }}
             >
               {setLocale(localization, authLang.registration.submit)}
             </Button>

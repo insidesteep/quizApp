@@ -49,7 +49,7 @@ service.interceptors.response.use(
     };
 
     if (error.response.status === 401) {
-      notificationParam.message = "No authorization";
+      notificationParam.message = error.response.data.message || "No authorization";
 
       //"The page you were trying to access cannot be loaded until you are logged in";
       localStorage.removeItem(AUTH_TOKEN);
