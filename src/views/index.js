@@ -18,7 +18,6 @@ import { authorization } from "../redux/actions/auth";
 import { onLocaleChange } from "../redux/actions/locale";
 
 function RouteInterceptor({ children, isAuthenticated, ...rest }) {
-  console.log(isAuthenticated);
   return (
     <Route
       {...rest}
@@ -62,7 +61,7 @@ export const Views = (props) => {
   }, []);
 
   useEffect(() => {
-    if (token !== null) {
+    if (token !== null && userInfo.role) {
       if (userInfo.role === "2") {
         history.push(`${APP_PREFIX_PATH}/dashboard`);
       }
@@ -76,7 +75,7 @@ export const Views = (props) => {
     //     hideAuthMessage();
     //   }, 3000);
     // }
-  }, []);
+  }, [token, userInfo.role]);
 
   //   useBodyClass(`dir-${direction}`);
 

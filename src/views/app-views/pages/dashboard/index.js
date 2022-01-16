@@ -11,6 +11,7 @@ import CreateQuestion from "./create-question";
 import { APP_PREFIX_PATH } from "../../../../configs/AppConfig";
 import Flex from "../../../../components/Flex";
 import { useSelector } from "react-redux";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 const { Header, Sider, Content } = Layout;
 const { Paragraph } = Typography;
@@ -18,6 +19,7 @@ const { Paragraph } = Typography;
 const DashboardPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
+  const screens = useBreakpoint();
 
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -26,13 +28,14 @@ const DashboardPage = () => {
   return (
     <div className="dashboard">
       <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="logo" />
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          collapsedWidth={!screens["md"] ? 0 : 80}
+        >
+          <div className="logo"></div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="2" icon={<PlusOutlined />}>
-              Add question
-              <Link to={`${APP_PREFIX_PATH}/dashboard/create-question`} />
-            </Menu.Item>
             <Menu.Item key="1" icon={<BarsOutlined />}>
               Test questions
             </Menu.Item>
@@ -55,7 +58,11 @@ const DashboardPage = () => {
                 {userInfo.subjectName}
               </Paragraph>
               <Paragraph style={{ margin: 0 }} type="secondary">
-                {`${userInfo.lastName}.${userInfo.firstName.slice(0,1).toUpperCase()}.${userInfo.middleName.slice(0,1).toUpperCase()}`}
+                {`${userInfo.lastName}.${userInfo.firstName
+                  .slice(0, 1)
+                  .toUpperCase()}.${userInfo.middleName
+                  .slice(0, 1)
+                  .toUpperCase()}`}
               </Paragraph>
             </Flex>
           </Header>

@@ -1,4 +1,5 @@
-import { Tag, Card } from "antd";
+import { Tag, Card, Badge } from "antd";
+import {PlusOutlined} from "@ant-design/icons"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,7 +7,7 @@ import {
   getQuestion,
 } from "../../../../../../redux/actions/question";
 
-const ListQuestions = ({ lang, setSelectedQuestion }) => {
+const ListQuestions = ({ lang, setSelectedQuestion, selectedQuestion }) => {
   const { testInfoId, questionCount } = useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
   const [questions, setQuestions] = useState([]);
@@ -28,11 +29,14 @@ const ListQuestions = ({ lang, setSelectedQuestion }) => {
     }
   }, [testInfoId]);
 
+  useEffect(() => {
+    setSelectedQuestion(parseInt(questionCount) + 1);
+  }, [questionCount]);
+
   const handleGetQuestion = (testId, questionNum) => {
     const cb = () => setSelectedQuestion(questionNum);
 
     if (testId) {
-      console.log(testId);
       dispatch(showLoadingQuestion());
       dispatch(
         getQuestion(
@@ -44,21 +48,33 @@ const ListQuestions = ({ lang, setSelectedQuestion }) => {
           cb
         )
       );
+    } else {
+      console.log(questionNum == parseInt(questionCount) + 1);
+      if (questionNum == parseInt(questionCount) + 1) {
+        setSelectedQuestion(questionNum);
+      }
     }
+  };
+
+  const setActiveClass = (selectedQuestion, idx) => {
+    return selectedQuestion == idx + 1 ? "question__item--active" : "";
   };
 
   return (
     <Card title="All Questions">
       {questions.map((q, idx) => (
-        <div
-          key={idx}
-          className={`question__item ${
-            q.testId ? "question__item--exist" : ""
-          } ${idx == questionCount ? "question__item--current" : ""}`}
-          onClick={() => handleGetQuestion(q.testId, q.value)}
-        >
-          {q.value}
-        </div>
+        <Badge size="small" key={idx} color="yellow" count={idx == questionCount ? "+" : ""} offset={[-5,5]} style={{lineHeight: "12px"}}>
+          <div
+            className={`question__item ${
+              q.testId ? "question__item--exist" : ""
+            } ${setActiveClass(selectedQuestion, idx)} ${
+              idx == questionCount ? "question__item--new" : ""
+            }`}
+            onClick={() => handleGetQuestion(q.testId, q.value)}
+          >
+            {q.value}
+          </div>
+        </Badge>
       ))}
     </Card>
   );

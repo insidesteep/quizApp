@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createQuestion,
+  updateQuestion,
   showLoadingCreate,
 } from "../../../../../../redux/actions/question";
 
@@ -71,16 +71,25 @@ const EditForm = ({ lang, questionNum }) => {
         question: questionData.data.name,
         answer_1: {
           answer: questionData.data.answer_1,
+          img: questionData.data.answer_img_1,
         },
         answer_2: {
           answer: questionData.data.answer_2,
+          img: questionData.data.answer_img_2,
         },
         answer_3: {
           answer: questionData.data.answer_3,
+          img: questionData.data.answer_img_3,
         },
         answer_4: {
           answer: questionData.data.answer_4,
+          img: questionData.data.answer_img_4,
         },
+        question_images: [
+          questionData.data.img_url_1,
+          questionData.data.img_url_2,
+          questionData.data.img_url_3,
+        ],
       });
 
       const answersImgList = {};
@@ -135,17 +144,24 @@ const EditForm = ({ lang, questionNum }) => {
     form
       .validateFields()
       .then((values) => {
-          console.log(values)
-        // dispatch(showLoadingCreate());
-        // dispatch(
-        //   createQuestion({ ...values, lang, subjectId: userInfo.subjectId })
-        // );
+        console.log(values);
+        dispatch(showLoadingCreate());
+        dispatch(
+          updateQuestion({
+            ...values,
+            lang,
+            subjectId: userInfo.subjectId,
+            testId: questionData.data.id,
+          })
+        );
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <Spin spinning={loadingQuestionCount || loadingCreate}>
+    <Spin
+      spinning={loadingQuestionCount || loadingCreate || questionData.loading}
+    >
       <Form layout="vertical" form={form}>
         <Card title={`Question №${questionNum}`}>
           <Form.Item name="question" rules={rules.question}>
@@ -311,15 +327,17 @@ const EditForm = ({ lang, questionNum }) => {
           </Card>
         </Card>
 
-        <Button
-          type="primary"
-          size="large"
-          icon={<SaveOutlined />}
-          htmlType="submit"
-          onClick={onFinish}
-        >
-          Save
-        </Button>
+        <div className="create-form__button">
+          <Button
+            type="primary"
+            size="large"
+            icon={<SaveOutlined />}
+            htmlType="submit"
+            onClick={onFinish}
+          >
+            Save
+          </Button>
+        </div>
       </Form>
     </Spin>
   );

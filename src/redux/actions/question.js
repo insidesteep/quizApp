@@ -10,6 +10,7 @@ import {
   SET_QUESTION,
   SHOW_LOADING_QUESTION,
   HIDE_LOADING_QUESTION,
+  UPDATE_QUESTION
 } from "../constants/question";
 
 export const fetchQuestionCount = (data) => {
@@ -22,6 +23,13 @@ export const fetchQuestionCount = (data) => {
 export const createQuestion = (data) => {
   return {
     type: CREATE_QUESTION,
+    payload: data,
+  };
+};
+
+export const updateQuestion = (data) => {
+  return {
+    type: UPDATE_QUESTION,
     payload: data,
   };
 };

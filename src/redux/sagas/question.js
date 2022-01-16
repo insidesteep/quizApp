@@ -4,6 +4,7 @@ import {
   CREATE_QUESTION,
   FETCH_QUESTION_COUNT,
   GET_QUESTION,
+  UPDATE_QUESTION,
 } from "../constants/question";
 import {
   hideLoadingCreate,
@@ -107,6 +108,133 @@ export function* createQuestion() {
   });
 }
 
+export function* updateQuestion() {
+  yield takeEvery(UPDATE_QUESTION, function* ({ payload }) {
+    const {
+      question_images,
+      question,
+      answer_1,
+      answer_2,
+      answer_3,
+      answer_4,
+      subjectId,
+      lang,
+      testId,
+    } = payload;
+
+    try {
+      const formData = new FormData();
+
+      formData.append("test_id", testId);
+      formData.append("lang", lang);
+      formData.append("subject_id", subjectId);
+      formData.append("name", question);
+      formData.append("answer_1", answer_1.answer);
+      formData.append("answer_2", answer_2.answer);
+      formData.append("answer_3", answer_3.answer);
+      formData.append("answer_4", answer_4.answer);
+
+      if (answer_1.img) {
+        if (typeof answer_1.img === "string") {
+          formData.append("answerimg1", answer_1.img);
+        } else {
+          if (answer_1.img.file.status === "done") {
+            formData.append("answerimg1", answer_1.img.file.originFileObj);
+          }
+
+          if (answer_1.img.file.status === "removed") {
+            formData.append("answerimg1", null);
+          }
+        }
+      } else {
+        formData.append("answerimg1", null);
+      }
+
+      if (answer_2.img) {
+        if (typeof answer_2.img === "string") {
+          formData.append("answerimg2", answer_2.img);
+        } else {
+          if (answer_2.img.file.status === "done") {
+            formData.append("answerimg2", answer_2.img.file.originFileObj);
+          }
+
+          if (answer_2.img.file.status === "removed") {
+            formData.append("answerimg2", null);
+          }
+        }
+      } else {
+        formData.append("answerimg2", null);
+      }
+
+      if (answer_3.img) {
+        if (typeof answer_3.img === "string") {
+          formData.append("answerimg3", answer_3.img);
+        } else {
+          if (answer_3.img.file.status === "done") {
+            formData.append("answerimg3", answer_3.img.file.originFileObj);
+          }
+
+          if (answer_3.img.file.status === "removed") {
+            formData.append("answerimg3", null);
+          }
+        }
+      } else {
+        formData.append("answerimg3", null);
+      }
+
+      if (answer_4.img) {
+        if (typeof answer_4.img === "string") {
+          formData.append("answerimg4", answer_4.img);
+        } else {
+          if (answer_4.img.file.status === "done") {
+            formData.append("answerimg4", answer_4.img.file.originFileObj);
+          }
+
+          if (answer_4.img.file.status === "removed") {
+            formData.append("answerimg4", null);
+          }
+        }
+      } else {
+        formData.append("answerimg4", null);
+      }
+
+      if (Array.isArray(question_images)) {
+        formData.append("img1", question_images[0]);
+        formData.append("img2", question_images[1]);
+        formData.append("img3", question_images[2]);
+      } else {
+        for (let i = 0; i < 3; i++) {
+          if (question_images.fileList[i]) {
+            if (question_images.fileList[i].url) {
+              formData.append(`img${i + 1}`, question_images.fileList[i].url);
+            } else {
+              formData.append(
+                `img${i + 1}`,
+                question_images.fileList[i].originFileObj
+              );
+            }
+          } else {
+            formData.append(`img${i + 1}`, null);
+          }
+        }
+      }
+
+      const { amount, test_info_id } = yield call(
+        QuestionService.create,
+        formData
+      );
+
+      yield put(setQuestionCount(amount));
+      yield put(setTestInfoId(test_info_id));
+
+      message.success("Вопрос успешно изменён!");
+    } catch (error) {
+      console.log(error);
+      yield put(hideLoadingCreate());
+    }
+  });
+}
+
 export function* getQuestion() {
   yield takeEvery(GET_QUESTION, function* ({ payload }) {
     const { data, cb } = payload;
@@ -118,6 +246,7 @@ export function* getQuestion() {
 
       cb();
     } catch (error) {
+      console.log(error)
       yield put(hideLoadingQuestion());
     }
   });
@@ -127,6 +256,7 @@ export default function* rootSaga() {
   yield all([
     fork(fetchQuestionCount),
     fork(createQuestion),
+    fork(updateQuestion),
     fork(getQuestion),
   ]);
 }

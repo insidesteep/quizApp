@@ -4,7 +4,7 @@ import {
   CheckOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createQuestion,
@@ -60,9 +60,8 @@ const CreateForm = ({ lang }) => {
     4: [],
   });
   const [form] = Form.useForm();
-  const { questionCount, loadingQuestionCount, loadingCreate } = useSelector(
-    (state) => state.question
-  );
+  const { questionCount, loadingQuestionCount, loadingCreate, questionData } =
+    useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -87,7 +86,9 @@ const CreateForm = ({ lang }) => {
   };
 
   return (
-    <Spin spinning={loadingQuestionCount || loadingCreate}>
+    <Spin
+      spinning={loadingQuestionCount || loadingCreate || questionData.loading}
+    >
       <Form layout="vertical" form={form}>
         <Card title={`Question №${+questionCount + 1}`}>
           <Form.Item name="question" rules={rules.question}>
@@ -253,15 +254,17 @@ const CreateForm = ({ lang }) => {
           </Card>
         </Card>
 
-        <Button
-          type="primary"
-          size="large"
-          icon={<SaveOutlined />}
-          htmlType="submit"
-          onClick={onFinish}
-        >
-          Save
-        </Button>
+        <div className="create-form__button">
+          <Button
+            type="primary"
+            size="large"
+            icon={<SaveOutlined />}
+            htmlType="submit"
+            onClick={onFinish}
+          >
+            Save
+          </Button>
+        </div>
       </Form>
     </Spin>
   );
