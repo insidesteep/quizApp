@@ -279,14 +279,11 @@ body {
   margin-bottom: 1px;
 }
 
-
-
 .question__preview-answer-title {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-
 
 .question__preview-card {
   margin-bottom: 1rem !important;
@@ -294,4 +291,22 @@ body {
 
 .question__preview-card .ant-card-head {
   background-color: #1890ff0f;
+}
+
+.question__preview-card img {
+  object-fit: cover;
+}
+
+.question__preview-pagination {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  background: #fff;
+  /* width: 100%; */
+  padding: 1rem 0.5rem;
+  /* border-top: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px -2px 20px rgb(0 0 0 / 10%);
 }

@@ -10,12 +10,23 @@ import {
   SET_QUESTION,
   SHOW_LOADING_QUESTION,
   HIDE_LOADING_QUESTION,
-  UPDATE_QUESTION
+  UPDATE_QUESTION,
+  SET_PREVIEW_QUESTIONS,
+  SHOW_LOADING_PREVIEW_QUESTIONS,
+  HIDE_LOADING_PREVIEW_QUESTIONS,
+  FETCH_PREVIEW_QUESTIONS,
 } from "../constants/question";
 
 export const fetchQuestionCount = (data) => {
   return {
     type: FETCH_QUESTION_COUNT,
+    payload: data,
+  };
+};
+
+export const fetchPreviewQuestions = (data) => {
+  return {
+    type: FETCH_PREVIEW_QUESTIONS,
     payload: data,
   };
 };
@@ -64,6 +75,13 @@ export const setTestInfoId = (data) => {
   };
 };
 
+export const setPreviewQuestions = (questions) => {
+  return {
+    type: SET_PREVIEW_QUESTIONS,
+    payload: questions,
+  };
+};
+
 export const showLoadingQuestionCount = () => {
   return {
     type: SHOW_LOADING_QUESTION_COUNT,
@@ -73,6 +91,18 @@ export const showLoadingQuestionCount = () => {
 export const showLoadingCreate = () => {
   return {
     type: SHOW_LOADING_CREATE,
+  };
+};
+
+export const showLoadingPreviewQuestions = () => {
+  return {
+    type: SHOW_LOADING_PREVIEW_QUESTIONS,
+  };
+};
+
+export const hideLoadingPreviewQuestions = () => {
+  return {
+    type: HIDE_LOADING_PREVIEW_QUESTIONS,
   };
 };
 

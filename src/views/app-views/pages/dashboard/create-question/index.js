@@ -27,8 +27,8 @@ const CreateQuestion = () => {
     }
   }, [lang, userInfo.subjectId]);
 
-  const handleChangeLang = (value) => {
-    setLang(value);
+  const handleChangeLang = (key) => {
+    setLang(key);
   };
 
   return (

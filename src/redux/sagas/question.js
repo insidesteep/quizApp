@@ -2,13 +2,16 @@ import { message } from "antd";
 import { all, takeEvery, put, fork, call } from "redux-saga/effects";
 import {
   CREATE_QUESTION,
+  FETCH_PREVIEW_QUESTIONS,
   FETCH_QUESTION_COUNT,
   GET_QUESTION,
   UPDATE_QUESTION,
 } from "../constants/question";
 import {
   hideLoadingCreate,
+  hideLoadingPreviewQuestions,
   hideLoadingQuestion,
+  setPreviewQuestions,
   setQuestion,
   setQuestionCount,
   setTestInfoId,
@@ -28,6 +31,21 @@ export function* fetchQuestionCount() {
       yield put(setTestInfoId(test_info_id));
     } catch (error) {
       // yield put(showAuthMessage("error", error.response.data.message));
+    }
+  });
+}
+
+export function* fetchPreviewQuestions() {
+  yield takeEvery(FETCH_PREVIEW_QUESTIONS, function* ({ payload }) {
+    try {
+      const questions = yield call(
+        QuestionService.getPreview,
+        payload
+      );
+
+      yield put(setPreviewQuestions(questions));
+    } catch (error) {
+      yield put(hideLoadingPreviewQuestions());
     }
   });
 }
@@ -279,5 +297,6 @@ export default function* rootSaga() {
     fork(createQuestion),
     fork(updateQuestion),
     fork(getQuestion),
+    fork(fetchPreviewQuestions)
   ]);
 }

@@ -1,10 +1,13 @@
 import {
   HIDE_LOADING_CREATE,
+  HIDE_LOADING_PREVIEW_QUESTIONS,
   HIDE_LOADING_QUESTION,
+  SET_PREVIEW_QUESTIONS,
   SET_QUESTION,
   SET_QUESTION_COUNT,
   SET_TEST_INFO_ID,
   SHOW_LOADING_CREATE,
+  SHOW_LOADING_PREVIEW_QUESTIONS,
   SHOW_LOADING_QUESTION,
   SHOW_LOADING_QUESTION_COUNT,
 } from "../constants/question";
@@ -16,6 +19,13 @@ const initState = {
   testInfoId: [],
   questionData: {
     data: null,
+    loading: false,
+  },
+  preview: {
+    data: {
+      all_item: 0,
+      test_info: [],
+    },
     loading: false,
   },
 };
@@ -46,6 +56,16 @@ const question = (state = initState, action) => {
         },
       };
 
+    case SET_PREVIEW_QUESTIONS:
+      return {
+        ...state,
+        preview: {
+          ...state.preview,
+          data: action.payload,
+          loading: false,
+        },
+      };
+
     case SHOW_LOADING_QUESTION_COUNT:
       return {
         ...state,
@@ -67,6 +87,15 @@ const question = (state = initState, action) => {
         },
       };
 
+    case SHOW_LOADING_PREVIEW_QUESTIONS:
+      return {
+        ...state,
+        preview: {
+          ...state.preview,
+          loading: true,
+        },
+      };
+
     case HIDE_LOADING_CREATE:
       return {
         ...state,
@@ -78,6 +107,15 @@ const question = (state = initState, action) => {
         ...state,
         questionData: {
           ...state.questionData,
+          loading: false,
+        },
+      };
+
+    case HIDE_LOADING_PREVIEW_QUESTIONS:
+      return {
+        ...state,
+        preview: {
+          ...state.preview,
           loading: false,
         },
       };

@@ -29,4 +29,13 @@ QuestionService.getById = function (data) {
   });
 };
 
+
+QuestionService.getPreview = function (data) {
+  return fetch({
+    url: "/preview_test.php",
+    method: "post",
+    data,
+  });
+};
+
 export default QuestionService;
