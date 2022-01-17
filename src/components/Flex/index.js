@@ -1,6 +1,14 @@
-const Flex = ({ children, alignItems, justifyContent, flexDirection, style }) => {
+const Flex = ({
+  children,
+  alignItems,
+  justifyContent,
+  flexDirection,
+  style,
+  className,
+}) => {
   return (
     <div
+      className={` ${className}`}
       style={{
         display: "flex",
         alignItems: alignItems,
@@ -8,7 +16,7 @@ const Flex = ({ children, alignItems, justifyContent, flexDirection, style }) =>
         flexDirection: flexDirection,
         width: "100%",
         height: "100%",
-        ...style
+        ...style,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import {
   CheckOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateQuestion,
@@ -51,6 +51,8 @@ const rules = {
 //   url: "https://user-images.githubusercontent.com/16330002/29263294-83b0c562-811b-11e7-9218-02d0b5b9097e.png",
 // }
 
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.input.scrollIntoView({ behavior: "smooth" }))   
+
 const EditForm = ({ lang, questionNum }) => {
   const [imgList, setImgList] = useState([]);
   const [answerImg, setAnswerImg] = useState({
@@ -60,6 +62,7 @@ const EditForm = ({ lang, questionNum }) => {
     4: [],
   });
   const [form] = Form.useForm();
+  const questionNameRef = useRef(null);
   const { questionCount, loadingQuestionCount, loadingCreate, questionData } =
     useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
@@ -129,6 +132,10 @@ const EditForm = ({ lang, questionNum }) => {
       setImgList(imgList);
 
       setAnswerImg(answersImgList);
+
+      
+      scrollToRef(questionNameRef)
+      questionNameRef.current.focus()
     }
   }, [questionData.data]);
 
@@ -138,6 +145,7 @@ const EditForm = ({ lang, questionNum }) => {
 
   const onChangeAwnserImg = (answerNum, fileList) => {
     setAnswerImg({ ...answerImg, [answerNum]: fileList });
+    
   };
 
   const onFinish = () => {
@@ -155,6 +163,7 @@ const EditForm = ({ lang, questionNum }) => {
           })
         );
       })
+
       .catch((error) => console.log(error));
   };
 
@@ -165,7 +174,7 @@ const EditForm = ({ lang, questionNum }) => {
       <Form layout="vertical" form={form}>
         <Card title={`Question №${questionNum}`}>
           <Form.Item name="question" rules={rules.question}>
-            <Input size="large" placeholder="Question" />
+            <Input size="large" placeholder="Question" ref={questionNameRef} />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0 }}>
             <div className="answer">

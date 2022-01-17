@@ -58,25 +58,41 @@ export function* createQuestion() {
       formData.append("answer_4", answer_4.answer);
 
       if (answer_1.img) {
-        formData.append("answerimg1", answer_1.img.file.originFileObj);
+        if (answer_1.img.file.status === "removed") {
+          formData.append("answerimg1", null);
+        } else {
+          formData.append("answerimg1", answer_1.img.file.originFileObj);
+        }
       } else {
         formData.append("answerimg1", null);
       }
 
       if (answer_2.img) {
-        formData.append("answerimg2", answer_2.img.file.originFileObj);
+        if (answer_2.img.file.status === "removed") {
+          formData.append("answerimg2", null);
+        } else {
+          formData.append("answerimg2", answer_2.img.file.originFileObj);
+        }
       } else {
         formData.append("answerimg2", null);
       }
 
       if (answer_3.img) {
-        formData.append("answerimg3", answer_3.img.file.originFileObj);
+        if (answer_3.img.file.status === "removed") {
+          formData.append("answerimg3", null);
+        } else {
+          formData.append("answerimg3", answer_3.img.file.originFileObj);
+        }
       } else {
         formData.append("answerimg3", null);
       }
 
       if (answer_4.img) {
-        formData.append("answerimg4", answer_4.img.file.originFileObj);
+        if (answer_4.img.file.status === "removed") {
+          formData.append("answerimg4", null);
+        } else {
+          formData.append("answerimg4", answer_4.img.file.originFileObj);
+        }
       } else {
         formData.append("answerimg4", null);
       }
@@ -206,7 +222,12 @@ export function* updateQuestion() {
         for (let i = 0; i < 3; i++) {
           if (question_images.fileList[i]) {
             if (question_images.fileList[i].url) {
-              formData.append(`img${i + 1}`, question_images.fileList[i].url);
+              formData.append(
+                `img${i + 1}`,
+                question_images.fileList[i].url.split(
+                  "https://pizzamizza.uz/temp/"
+                )[1]
+              );
             } else {
               formData.append(
                 `img${i + 1}`,
@@ -246,7 +267,7 @@ export function* getQuestion() {
 
       cb();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       yield put(hideLoadingQuestion());
     }
   });

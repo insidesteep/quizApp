@@ -5,6 +5,7 @@ import {
   MenuFoldOutlined,
   BarsOutlined,
   PlusOutlined,
+  EyeOutlined
 } from "@ant-design/icons";
 import { useState } from "react";
 import CreateQuestion from "./create-question";
@@ -12,6 +13,7 @@ import { APP_PREFIX_PATH } from "../../../../configs/AppConfig";
 import Flex from "../../../../components/Flex";
 import { useSelector } from "react-redux";
 import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
+import PreviewQuestions from "./preview-question";
 
 const { Header, Sider, Content } = Layout;
 const { Paragraph } = Typography;
@@ -38,6 +40,11 @@ const DashboardPage = () => {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1" icon={<BarsOutlined />}>
               Test questions
+              <Link to={`${APP_PREFIX_PATH}/dashboard/create-question`}/>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<EyeOutlined />}>
+              Preview questions
+              <Link to={`${APP_PREFIX_PATH}/dashboard/preview-questions`}/>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -80,6 +87,10 @@ const DashboardPage = () => {
                   <Route
                     path={`${APP_PREFIX_PATH}/dashboard/create-question`}
                     component={CreateQuestion}
+                  />
+                   <Route
+                    path={`${APP_PREFIX_PATH}/dashboard/preview-questions`}
+                    component={PreviewQuestions}
                   />
                   <Redirect
                     from={`${APP_PREFIX_PATH}/dashboard`}
