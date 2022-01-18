@@ -15,31 +15,31 @@ const rules = {
   question: [
     {
       required: true,
-      message: "Please enter a question",
+      message: "Iltimos, savolni kiriting",
     },
   ],
   answer_1: [
     {
       required: true,
-      message: "Please enter a 'Answer 1'",
+      message: "Iltimos, 1-javobni kiriting kiriting",
     },
   ],
   answer_2: [
     {
       required: true,
-      message: "Please enter a 'Answer 2'",
+      message: "Iltimos, 2-javobni kiriting kiriting",
     },
   ],
   answer_3: [
     {
       required: true,
-      message: "Please enter a 'Answer 3'",
+      message: "Iltimos, 3-javobni kiriting kiriting",
     },
   ],
   answer_4: [
     {
       required: true,
-      message: "Please enter a 'Answer 4'",
+      message: "Iltimos, 4-javobni kiriting kiriting",
     },
   ],
 };
@@ -90,9 +90,9 @@ const CreateForm = ({ lang }) => {
       spinning={loadingQuestionCount || loadingCreate || questionData.loading}
     >
       <Form layout="vertical" form={form}>
-        <Card title={`Question №${+questionCount + 1}`}>
+        <Card title={`Savol №${+questionCount + 1}`}>
           <Form.Item name="question" rules={rules.question}>
-            <Input size="large" placeholder="Question" />
+            <Input.TextArea rows={3} size="large" placeholder="Savolni kiriting" />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0 }}>
             <div className="answer">
@@ -104,7 +104,7 @@ const CreateForm = ({ lang }) => {
                   rules={rules.answer_1}
                 >
                   <Input
-                    placeholder="Answer 1"
+                    placeholder="Javob 1"
                     suffix={
                       <Tag color="#87d068">
                         <CheckOutlined />
@@ -125,7 +125,7 @@ const CreateForm = ({ lang }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[1].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -143,7 +143,7 @@ const CreateForm = ({ lang }) => {
                   noStyle
                   rules={rules.answer_2}
                 >
-                  <Input placeholder="Answer 2" />
+                  <Input placeholder="Javob 2" />
                 </Form.Item>
                 <Form.Item name={["answer_2", "img"]} noStyle>
                   <Upload
@@ -158,7 +158,7 @@ const CreateForm = ({ lang }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[2].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -176,7 +176,7 @@ const CreateForm = ({ lang }) => {
                   noStyle
                   rules={rules.answer_3}
                 >
-                  <Input placeholder="Answer 3" />
+                  <Input placeholder="Javob 3" />
                 </Form.Item>
                 <Form.Item name={["answer_3", "img"]} noStyle>
                   <Upload
@@ -191,7 +191,7 @@ const CreateForm = ({ lang }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[3].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -209,7 +209,7 @@ const CreateForm = ({ lang }) => {
                   noStyle
                   rules={rules.answer_4}
                 >
-                  <Input placeholder="Answer 4" />
+                  <Input placeholder="Javob 4" />
                 </Form.Item>
                 <Form.Item name={["answer_4", "img"]} noStyle>
                   <Upload
@@ -224,7 +224,7 @@ const CreateForm = ({ lang }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[4].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -233,7 +233,7 @@ const CreateForm = ({ lang }) => {
               </div>
             </div>
           </Form.Item>
-          <Card title="Images">
+          <Card title="Savolga tegishli rasmlar">
             <div>
               <Form.Item name="question_images">
                 <Upload

@@ -18,6 +18,7 @@ import {
 } from "../actions/question";
 
 import QuestionService from "../../services/QuestionService";
+import { APP_PREFIX_PATH } from "../../configs/AppConfig";
 
 export function* fetchQuestionCount() {
   yield takeEvery(FETCH_QUESTION_COUNT, function* ({ payload }) {
@@ -243,7 +244,7 @@ export function* updateQuestion() {
               formData.append(
                 `img${i + 1}`,
                 question_images.fileList[i].url.split(
-                  "https://pizzamizza.uz/temp/"
+                  `${APP_PREFIX_PATH}/temp/`
                 )[1]
               );
             } else {

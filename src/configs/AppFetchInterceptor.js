@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "./AppConfig";
-// import history from "../history";
+import history from "../history";
 import { AUTH_TOKEN } from "../redux/constants/auth";
 import { notification } from "antd";
 
@@ -59,7 +59,7 @@ service.interceptors.response.use(
 
       //"The page you were trying to access cannot be loaded until you are logged in";
       localStorage.removeItem(AUTH_TOKEN);
-      // history.push(ENTRY_ROUTE);
+      history.push(ENTRY_ROUTE);
       window.location.reload();
     }
 

@@ -4,7 +4,7 @@ const JwtAuthService = {};
 
 JwtAuthService.login = function (data) {
   return fetch({
-    url: "/login.php",
+    url: "/api/login.php",
     method: "post",
     data: data,
   });
@@ -12,7 +12,7 @@ JwtAuthService.login = function (data) {
 
 JwtAuthService.signUp = function (data) {
   return fetch({
-    url: "/create_user.php",
+    url: "/api/create_user.php",
     method: "post",
     headers: {
       "Content-Type": "application/form-data"
@@ -23,7 +23,7 @@ JwtAuthService.signUp = function (data) {
 
 JwtAuthService.authorization = function () {
   return fetch({
-    url: "/validate_token.php",
+    url: "/api/validate_token.php",
     method: "get",
   });
 };

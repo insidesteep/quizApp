@@ -6,6 +6,7 @@ import {
   showLoadingPreviewQuestions,
   fetchPreviewQuestions,
 } from "../../../../../../redux/actions/question";
+import { API_BASE_URL } from "../../../../../../configs/AppConfig";
 
 const Questions = ({ lang }) => {
   const [page, setPage] = useState(1);
@@ -36,7 +37,7 @@ const Questions = ({ lang }) => {
       {preview.data.test_info && preview.data.all_items > 10 && (
         <div className="question__preview-pagination">
           <Pagination
-          size="small"
+            size="small"
             total={preview.data.all_items}
             current={page}
             onChange={nextPage}
@@ -50,7 +51,7 @@ const Questions = ({ lang }) => {
           title={
             <Flex alignItems="center" justifyContent="space-between">
               <div className="question__priview-header">
-                <h4>№{idx + 1}</h4>
+                <h4>№{idx + 1 + (page - 1) * 10}</h4>
                 <Divider type="vertical" />
                 <h5>{q.name}</h5>
               </div>
@@ -59,21 +60,21 @@ const Questions = ({ lang }) => {
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.img_url_1}`}
+                    src={`${API_BASE_URL}/temp/${q.img_url_1}`}
                   />
                 )}
                 {q.img_url_2 && (
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.img_url_2}`}
+                    src={`${API_BASE_URL}/temp/${q.img_url_2}`}
                   />
                 )}
                 {q.img_url_3 && (
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.img_url_3}`}
+                    src={`${API_BASE_URL}/temp/${q.img_url_3}`}
                   />
                 )}
               </div>
@@ -94,7 +95,7 @@ const Questions = ({ lang }) => {
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.answer_img_1}`}
+                    src={`${API_BASE_URL}/temp/${q.answer_img_1}`}
                   />
                 )}
               </div>
@@ -109,7 +110,7 @@ const Questions = ({ lang }) => {
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.answer_img_2}`}
+                    src={`${API_BASE_URL}/temp/${q.answer_img_2}`}
                   />
                 )}
               </div>
@@ -124,7 +125,7 @@ const Questions = ({ lang }) => {
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.answer_img_3}`}
+                    src={`${API_BASE_URL}/temp/${q.answer_img_3}`}
                   />
                 )}
               </div>
@@ -139,7 +140,7 @@ const Questions = ({ lang }) => {
                   <Image
                     width={50}
                     height={50}
-                    src={`https://pizzamizza.uz/temp/${q.answer_img_4}`}
+                    src={`${API_BASE_URL}/temp/${q.answer_img_4}`}
                   />
                 )}
               </div>

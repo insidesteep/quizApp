@@ -310,3 +310,13 @@ body {
   justify-content: center;
   box-shadow: 2px -2px 20px rgb(0 0 0 / 10%);
 }
+
+.test__intro {
+  max-width: 500px;
+  min-width: 200px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -60,22 +60,22 @@ export const Views = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (token !== null && userInfo.role) {
-  //     if (userInfo.role === "2") {
-  //       history.push(`${APP_PREFIX_PATH}/dashboard`);
-  //     }
+  useEffect(() => {
+    if (token !== null && userInfo.role) {
+      if (userInfo.role === "2") {
+        history.push(`${APP_PREFIX_PATH}/dashboard`);
+      }
 
-  //     if (userInfo.role === "1") {
-  //       history.push(`${APP_PREFIX_PATH}`);
-  //     }
-  //   }
-  //   // if (showMessage) {
-  //   //   setTimeout(() => {
-  //   //     hideAuthMessage();
-  //   //   }, 3000);
-  //   // }
-  // }, [token, userInfo.role]);
+      if (userInfo.role === "1") {
+        history.push(`${APP_PREFIX_PATH}`);
+      }
+    }
+    // if (showMessage) {
+    //   setTimeout(() => {
+    //     hideAuthMessage();
+    //   }, 3000);
+    // }
+  }, [token, userInfo.role]);
 
   //   useBodyClass(`dir-${direction}`);
 

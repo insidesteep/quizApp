@@ -3,7 +3,7 @@ import {
   AUTHENTICATED,
   SHOW_AUTH_MESSAGE,
   HIDE_AUTH_MESSAGE,
-  SIGNOUT_SUCCESS,
+  SIGNOUT,
   SIGNUP_SUCCESS,
   SHOW_LOADING,
   SET_TERM_REG_INFO,
@@ -20,7 +20,7 @@ const initState = {
     lastName: "",
     middleName: "",
     role: null,
-    subjectName: ""
+    subjectName: "",
   },
   termRegData: null,
 };
@@ -51,12 +51,23 @@ const auth = (state = initState, action) => {
         message: {},
         showMessage: false,
       };
-    case SIGNOUT_SUCCESS:
+    case SIGNOUT:
+      localStorage.removeItem("auth_token")
+
       return {
-        ...state,
-        token: null,
-        redirect: "/",
         loading: false,
+        message: {},
+        showMessage: false,
+        redirect: "",
+        token: null,
+        userInfo: {
+          firstName: "",
+          lastName: "",
+          middleName: "",
+          role: null,
+          subjectName: "",
+        },
+        termRegData: null,
       };
 
     case SIGNUP_SUCCESS:

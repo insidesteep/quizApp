@@ -4,7 +4,7 @@ const QuestionService = {};
 
 QuestionService.getQuestionCount = function (data) {
   return fetch({
-    url: "/countQuestion.php",
+    url: "/api/countQuestion.php",
     method: "post",
     data,
   });
@@ -12,7 +12,7 @@ QuestionService.getQuestionCount = function (data) {
 
 QuestionService.create = function (data) {
   return fetch({
-    url: "/create_test.php",
+    url: "/api/create_test.php",
     method: "post",
     data,
     headers: {
@@ -23,7 +23,7 @@ QuestionService.create = function (data) {
 
 QuestionService.getById = function (data) {
   return fetch({
-    url: "/view_test.php",
+    url: "/api/view_test.php",
     method: "post",
     data,
   });
@@ -32,7 +32,7 @@ QuestionService.getById = function (data) {
 
 QuestionService.getPreview = function (data) {
   return fetch({
-    url: "/preview_test.php",
+    url: "/api/preview_test.php",
     method: "post",
     data,
   });

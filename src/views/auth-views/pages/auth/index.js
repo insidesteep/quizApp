@@ -32,8 +32,6 @@ const AuthPage = ({ localization = true }) => {
     dispatch(onLocaleChange(e.target.value));
   };
 
-
-
   return (
     <div className="auth-wrapper">
       <Row style={{ height: "100%" }}>
@@ -108,7 +106,8 @@ const AuthPage = ({ localization = true }) => {
           </Row>
           <Row>
             <Col>
-              {authState === "login" ? <LoginForm /> : <RegisterForm />}
+              <LoginForm />
+              {/* {authState === "login" ? <LoginForm /> : <RegisterForm />} */}
             </Col>
           </Row>
         </Col>

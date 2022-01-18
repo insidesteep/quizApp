@@ -1,17 +1,17 @@
 const dev = {
-  API_ENDPOINT_URL: "https://pizzamizza.uz/api",
+  API_ENDPOINT_URL: "/",
 };
 
 const prod = {
-  API_ENDPOINT_URL: "https://pizzamizza.uz/api",
+  API_ENDPOINT_URL: "/",
 };
 
 // const dev = {
-//   API_ENDPOINT_URL: "/api",
+//   API_ENDPOINT_URL: "/",
 // };
 
 // const prod = {
-//   API_ENDPOINT_URL: "/api",
+//   API_ENDPOINT_URL: "/",
 // };
 
 

@@ -35,8 +35,8 @@ const CreateQuestion = () => {
     <Col span={23}>
       <Title level={3}>
         {selectedQuestion <= questionCount
-          ? `Edit Question - №${selectedQuestion}`
-          : "Create New Question"}
+          ? `Savolni tahrirlash - №${selectedQuestion}`
+          : "Yangi savol yaratilishi"}
       </Title>
       <Paragraph type="warning">
         <WarningOutlined size="large" />

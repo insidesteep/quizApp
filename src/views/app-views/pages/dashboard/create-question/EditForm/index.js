@@ -10,36 +10,37 @@ import {
   updateQuestion,
   showLoadingCreate,
 } from "../../../../../../redux/actions/question";
+import { APP_PREFIX_PATH } from "../../../../../../configs/AppConfig";
 
 const rules = {
   question: [
     {
       required: true,
-      message: "Please enter a question",
+      message: "Iltimos, savolni kiriting",
     },
   ],
   answer_1: [
     {
       required: true,
-      message: "Please enter a 'Answer 1'",
+      message: "Iltimos, 1-javobni kiriting kiriting",
     },
   ],
   answer_2: [
     {
       required: true,
-      message: "Please enter a 'Answer 2'",
+      message: "Iltimos, 2-javobni kiriting kiriting",
     },
   ],
   answer_3: [
     {
       required: true,
-      message: "Please enter a 'Answer 3'",
+      message: "Iltimos, 3-javobni kiriting kiriting",
     },
   ],
   answer_4: [
     {
       required: true,
-      message: "Please enter a 'Answer 4'",
+      message: "Iltimos, 4-javobni kiriting kiriting",
     },
   ],
 };
@@ -51,7 +52,7 @@ const rules = {
 //   url: "https://user-images.githubusercontent.com/16330002/29263294-83b0c562-811b-11e7-9218-02d0b5b9097e.png",
 // }
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.input.scrollIntoView({ behavior: "smooth" }))   
+// const scrollToRef = (ref) => console.log(ref) || window.scrollTo(0, ref.current.textarea.scrollIntoView({ behavior: "smooth" }))   
 
 const EditForm = ({ lang, questionNum }) => {
   const [imgList, setImgList] = useState([]);
@@ -62,7 +63,6 @@ const EditForm = ({ lang, questionNum }) => {
     4: [],
   });
   const [form] = Form.useForm();
-  const questionNameRef = useRef(null);
   const { questionCount, loadingQuestionCount, loadingCreate, questionData } =
     useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
@@ -104,7 +104,7 @@ const EditForm = ({ lang, questionNum }) => {
               uid: i,
               name: "",
               status: "done",
-              url: `https://pizzamizza.uz/temp/${
+              url: `${APP_PREFIX_PATH}/temp/${
                 questionData.data[`answer_img_${i}`]
               }`,
             },
@@ -122,7 +122,7 @@ const EditForm = ({ lang, questionNum }) => {
             uid: i,
             name: "",
             status: "done",
-            url: `https://pizzamizza.uz/temp/${
+            url: `${APP_PREFIX_PATH}/temp/${
               questionData.data[`img_url_${i}`]
             }`,
           });
@@ -134,8 +134,8 @@ const EditForm = ({ lang, questionNum }) => {
       setAnswerImg(answersImgList);
 
       
-      scrollToRef(questionNameRef)
-      questionNameRef.current.focus()
+      // scrollToRef(questionNameRef)
+      // questionNameRef.current.focus()
     }
   }, [questionData.data]);
 
@@ -172,9 +172,9 @@ const EditForm = ({ lang, questionNum }) => {
       spinning={loadingQuestionCount || loadingCreate || questionData.loading}
     >
       <Form layout="vertical" form={form}>
-        <Card title={`Question №${questionNum}`}>
+        <Card title={`Savol №${questionNum}`}>
           <Form.Item name="question" rules={rules.question}>
-            <Input size="large" placeholder="Question" ref={questionNameRef} />
+            <Input.TextArea rows={3} size="large" placeholder="Question"  />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0 }}>
             <div className="answer">
@@ -186,7 +186,7 @@ const EditForm = ({ lang, questionNum }) => {
                   rules={rules.answer_1}
                 >
                   <Input
-                    placeholder="Answer 1"
+                    placeholder="Javob 1"
                     suffix={
                       <Tag color="#87d068">
                         <CheckOutlined />
@@ -207,7 +207,7 @@ const EditForm = ({ lang, questionNum }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[1].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -225,7 +225,7 @@ const EditForm = ({ lang, questionNum }) => {
                   noStyle
                   rules={rules.answer_2}
                 >
-                  <Input placeholder="Answer 2" />
+                  <Input placeholder="Javob 2" />
                 </Form.Item>
                 <Form.Item name={["answer_2", "img"]} noStyle>
                   <Upload
@@ -240,7 +240,7 @@ const EditForm = ({ lang, questionNum }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[2].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -258,7 +258,7 @@ const EditForm = ({ lang, questionNum }) => {
                   noStyle
                   rules={rules.answer_3}
                 >
-                  <Input placeholder="Answer 3" />
+                  <Input placeholder="Javob 3" />
                 </Form.Item>
                 <Form.Item name={["answer_3", "img"]} noStyle>
                   <Upload
@@ -273,7 +273,7 @@ const EditForm = ({ lang, questionNum }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[3].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasm yuklash">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -291,7 +291,7 @@ const EditForm = ({ lang, questionNum }) => {
                   noStyle
                   rules={rules.answer_4}
                 >
-                  <Input placeholder="Answer 4" />
+                  <Input placeholder="Javob 4" />
                 </Form.Item>
                 <Form.Item name={["answer_4", "img"]} noStyle>
                   <Upload
@@ -306,7 +306,7 @@ const EditForm = ({ lang, questionNum }) => {
                     //   onPreview={onPreview}
                   >
                     {answerImg[4].length < 1 && (
-                      <Tooltip title="Добавить изображение">
+                      <Tooltip title="Rasmni yuklang">
                         <PictureOutlined />
                       </Tooltip>
                     )}
@@ -315,7 +315,7 @@ const EditForm = ({ lang, questionNum }) => {
               </div>
             </div>
           </Form.Item>
-          <Card title="Images">
+          <Card title="Savolga tegishli rasmlar">
             <div>
               <Form.Item name="question_images">
                 <Upload

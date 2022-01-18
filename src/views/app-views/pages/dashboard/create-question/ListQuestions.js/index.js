@@ -61,7 +61,7 @@ const ListQuestions = ({ lang, setSelectedQuestion, selectedQuestion }) => {
   };
 
   return (
-    <Card title="All Questions">
+    <Card title="Barcha savollar">
       {questions.map((q, idx) => (
         <Badge size="small" key={idx} color="yellow" count={idx == questionCount ? "+" : ""} offset={[-5,5]} style={{lineHeight: "12px"}}>
           <div
