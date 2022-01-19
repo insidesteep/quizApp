@@ -98,9 +98,9 @@ const AuthPage = ({ localization = true }) => {
                   {setLocale(localization, authLang.switchAuth.login)}
                 </Radio.Button>
 
-                <Radio.Button value="registration">
+                {/* <Radio.Button value="registration">
                   {setLocale(localization, authLang.switchAuth.registration)}
-                </Radio.Button>
+                </Radio.Button> */}
               </Radio.Group>
             </Col>
           </Row>

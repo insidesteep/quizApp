@@ -52,4 +52,12 @@ QuestionService.getLastTest = function () {
   });
 };
 
+QuestionService.getNextTest = function (data) {
+  return fetch({
+    url: "/api/the_next_test.php",
+    method: "post",
+    data
+  });
+};
+
 export default QuestionService;

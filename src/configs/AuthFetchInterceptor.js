@@ -15,7 +15,7 @@ const TOKEN_PAYLOAD_KEY = "Authorization";
 // API Request interceptor
 service.interceptors.request.use(
   (config) => {
-    const jwtToken = localStorage.getItem("auth_token");
+    const jwtToken = localStorage.getItem(AUTH_TOKEN);
     if (jwtToken) {
       config.headers[TOKEN_PAYLOAD_KEY] = `Bearer ${jwtToken}`;
     }

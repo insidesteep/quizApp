@@ -23,6 +23,9 @@ import {
   SHOW_LOADING_LAST_TEST,
   HIDE_LOADING_LAST_TEST,
   FETCH_LAST_TEST,
+  FETCH_NEXT_TEST,
+  SHOW_LOADING_NEXT_TEXT,
+  HIDE_LOADING_NEXT_TEXT,
 } from "../constants/question";
 
 export const fetchQuestionCount = (data) => {
@@ -49,6 +52,13 @@ export const fetchStartTest = (data) => {
 export const fetchLastTest = () => {
   return {
     type: FETCH_LAST_TEST,
+  };
+};
+
+export const fetchNextTest = (data, cb) => {
+  return {
+    type: FETCH_NEXT_TEST,
+    payload: { data, cb },
   };
 };
 
@@ -147,6 +157,12 @@ export const showLoadingLastTest = () => {
   };
 };
 
+export const showLoadingNextTest = () => {
+  return {
+    type: SHOW_LOADING_NEXT_TEXT,
+  };
+};
+
 export const hideLoadingPreviewQuestions = () => {
   return {
     type: HIDE_LOADING_PREVIEW_QUESTIONS,
@@ -180,5 +196,11 @@ export const hideLoadingTestData = () => {
 export const hideLoadingLastTest = () => {
   return {
     type: HIDE_LOADING_LAST_TEST,
+  };
+};
+
+export const hideLoadingNextTest = () => {
+  return {
+    type: HIDE_LOADING_NEXT_TEXT,
   };
 };

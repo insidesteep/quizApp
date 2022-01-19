@@ -1,4 +1,4 @@
-import { Layout, Row, Typography } from "antd";
+import { Layout, Row, Typography, Progress } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import Flex from "../../../../components/Flex";
 import { ClockCircleOutlined, LogoutOutlined } from "@ant-design/icons";
@@ -14,6 +14,7 @@ import {
   fetchLastTest,
 } from "../../../../redux/actions/question";
 import moment from "moment";
+import Timer from "../../../../components/Timer";
 
 const { Header } = Layout;
 const { Text } = Typography;
@@ -26,21 +27,13 @@ const MainPage = () => {
 
   useEffect(() => {
     if (testData.testStatus == 1) {
+      console.log(2);
       dispatch(showLoadingLastTest());
       dispatch(fetchLastTest());
     }
   }, [testData.testStatus]);
 
-  useEffect(() => {
-    if (testData.data) {
-      const last = moment(+testData.data.finish_timestamp);
-      const now = moment(+testData.data.now_timestamp);
 
-      const diff = last.diff(now);
-
-      console.log("DIFF", diff);
-    }
-  }, [testData.data]);
 
   const logOut = () => {
     dispatch(signOut());
@@ -66,11 +59,11 @@ const MainPage = () => {
           </div>
 
           {userInfo &&
-            (testData.testStatus == 0 || testData.testStatus == 2) && (
-              <LogoutOutlined onClick={logOut} />
-            )}
+            (testData.testStatus == 0 ||
+              testData.testStatus == 2 ||
+              testData.testStatus == 3) && <LogoutOutlined onClick={logOut} />}
 
-          {userInfo && testData.testStatus == 1 && (
+          {userInfo && testData.testStatus == 1 && testData.data && (
             <>
               <p className="test__question-count">
                 {screens.md && "Question"}{" "}
@@ -83,10 +76,7 @@ const MainPage = () => {
                   </>
                 )}
               </p>
-              <p className="test__time">
-                00:55 {screens.md && "mins - time taken"}{" "}
-                <ClockCircleOutlined style={{ color: "#40a9ff" }} />
-              </p>
+              <Timer timestamp={testData.data.finish_timestamp - testData.data.now_timestamp}/>
             </>
           )}
         </Flex>
@@ -94,7 +84,11 @@ const MainPage = () => {
       <Row align="center" style={{ height: "100%" }}>
         {userInfo && testData.testStatus == 0 && <TestIntro />}
         {userInfo && testData.testStatus == 1 && <TestProcess />}
-        {userInfo && testData.testStatus == 2 && <h1>Test Zakonchen</h1>}
+        {userInfo && testData.testStatus == 2 && (
+          <Progress type="circle" percent={50} format={() => "2 / 20"} />
+        )}
+
+        {userInfo && testData.testStatus == 3 && <h1>Nedoreshyon</h1>}
       </Row>
     </div>
   );

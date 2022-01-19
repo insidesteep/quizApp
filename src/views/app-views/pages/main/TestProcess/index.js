@@ -2,6 +2,10 @@ import { Tabs, Col, Space, Radio, Button, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Flex from "../../../../../components/Flex";
+import {
+  showLoadingNextTest,
+  fetchNextTest,
+} from "../../../../../redux/actions/question";
 
 const { TabPane } = Tabs;
 
@@ -15,11 +19,29 @@ const TestProcess = () => {
   const [tab, setTab] = useState("1");
   const [value, setValue] = useState(null);
   const { testData } = useSelector((state) => state.question);
+  const dispatch = useDispatch();
 
+
+
+  
   const handleNextTab = () => {
-    if (value) {
+    const cb = () => {
       setTab("" + (+tab + 1));
       setValue(null);
+    };
+
+    if (value) {
+      console.log(5555)
+      dispatch(showLoadingNextTest());
+      dispatch(
+        fetchNextTest(
+          {
+            test_id: testData.data.test_info.id,
+            answer_number: value,
+          },
+          cb
+        )
+      );
     }
   };
 
@@ -30,13 +52,13 @@ const TestProcess = () => {
       <Tabs activeKey={tab} centered style={{ padding: "0.5rem" }}>
         {quzzAmount.map((q) => (
           <TabPane tab={q} key={q}>
-            {testData.data && (
+            {testData.data && Object.keys(testData.data).length != 0 && (
               <Flex
                 flexDirection="column"
                 alignItems="center"
                 className="test__contain"
               >
-                <h3 style={{ margin: "5rem 0", color: "#414141" }}>
+                <h3 style={{ margin: "3rem 0", color: "#414141" }}>
                   {testData.data.test_info.name}
                 </h3>
                 <Radio.Group optionType="button" onChange={handleChangeAnswer}>
@@ -64,6 +86,7 @@ const TestProcess = () => {
                   <Tooltip title={!value && "Выберите ответ!"}>
                     <Button
                       disabled={!value}
+                      loading={testData.loadingNext}
                       type="primary"
                       size="large"
                       onClick={handleNextTab}

@@ -1,6 +1,7 @@
 import {
   HIDE_LOADING_CREATE,
   HIDE_LOADING_LAST_TEST,
+  HIDE_LOADING_NEXT_TEXT,
   HIDE_LOADING_PREVIEW_QUESTIONS,
   HIDE_LOADING_QUESTION,
   HIDE_LOADING_TEST_DATA,
@@ -12,6 +13,7 @@ import {
   SET_TEST_STATUS,
   SHOW_LOADING_CREATE,
   SHOW_LOADING_LAST_TEST,
+  SHOW_LOADING_NEXT_TEXT,
   SHOW_LOADING_PREVIEW_QUESTIONS,
   SHOW_LOADING_QUESTION,
   SHOW_LOADING_QUESTION_COUNT,
@@ -40,6 +42,7 @@ const initState = {
     testStatus: null,
     loading: false,
     loadingLast: false,
+    loadingNext: false,
   },
 };
 
@@ -86,7 +89,8 @@ const question = (state = initState, action) => {
           ...state.testData,
           data: action.payload,
           loading: false,
-          loadingLast: false
+          loadingLast: false,
+          loadingNext: false,
         },
       };
 
@@ -147,6 +151,15 @@ const question = (state = initState, action) => {
         },
       };
 
+      case SHOW_LOADING_NEXT_TEXT:
+        return {
+          ...state,
+          testData: {
+            ...state.testData,
+            loadingNext: true,
+          },
+        };
+
     case HIDE_LOADING_CREATE:
       return {
         ...state,
@@ -185,6 +198,15 @@ const question = (state = initState, action) => {
         testData: {
           ...state.testData,
           loadingLast: false,
+        },
+      };
+
+    case HIDE_LOADING_NEXT_TEXT:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          loadingNext: false,
         },
       };
 

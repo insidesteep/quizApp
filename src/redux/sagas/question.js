@@ -3,6 +3,7 @@ import { all, takeEvery, put, fork, call } from "redux-saga/effects";
 import {
   CREATE_QUESTION,
   FETCH_LAST_TEST,
+  FETCH_NEXT_TEST,
   FETCH_PREVIEW_QUESTIONS,
   FETCH_QUESTION_COUNT,
   FETCH_START_TEST,
@@ -12,6 +13,7 @@ import {
 import {
   hideLoadingCreate,
   hideLoadingLastTest,
+  hideLoadingNextTest,
   hideLoadingPreviewQuestions,
   hideLoadingQuestion,
   hideLoadingTestData,
@@ -63,10 +65,34 @@ export function* fetchLastTest() {
     try {
       const { test_status, ...other } = yield call(QuestionService.getLastTest);
 
-      yield put(setTestData(other));
+      if(test_status == 3) {
+        yield put(setTestData(null));
+      }else {
+        yield put(setTestData(other)); 
+      }
       yield put(setTestStatus(test_status));
     } catch (error) {
       yield put(hideLoadingLastTest());
+    }
+  });
+}
+
+export function* fetchNextTest() {
+  yield takeEvery(FETCH_NEXT_TEST, function* ({payload}) {
+    try {
+      const {data, cb} = payload
+
+      const { test_status, ...other } = yield call(QuestionService.getNextTest, data);
+
+      if(test_status == 3) {
+        yield put(setTestData(null));
+      }else {
+        yield put(setTestData(other)); 
+      }
+      yield put(setTestStatus(test_status));
+      cb()
+    } catch (error) {
+      yield put(hideLoadingNextTest());
     }
   });
 }
@@ -333,5 +359,6 @@ export default function* rootSaga() {
     fork(fetchPreviewQuestions),
     fork(fetchStartTest),
     fork(fetchLastTest),
+    fork(fetchNextTest)
   ]);
 }
