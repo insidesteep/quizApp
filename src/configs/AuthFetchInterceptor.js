@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "./AppConfig";
-// import history from "../history";
+import history from "../history";
 import { notification } from "antd";
 import { AUTH_TOKEN } from "../redux/constants/auth";
 
@@ -8,6 +8,8 @@ const service = axios.create({
   baseURL: API_BASE_URL,
   timeout: 60000,
 });
+
+const ENTRY_ROUTE = "/auth";
 
 const TOKEN_PAYLOAD_KEY = "Authorization";
 // API Request interceptor
@@ -53,7 +55,9 @@ service.interceptors.response.use(
 
       //"The page you were trying to access cannot be loaded until you are logged in";
       localStorage.removeItem(AUTH_TOKEN);
-      localStorage.removeItem("default_organization");
+
+      history.push(ENTRY_ROUTE);
+      // window.location.reload();
 
     }
 

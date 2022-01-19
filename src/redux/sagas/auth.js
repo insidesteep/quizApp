@@ -17,6 +17,7 @@ import {
 // import { setOrganization } from "../actions/Organization";
 
 import JwtAuthService from "../../services/JwtAuthService";
+import { setTestStatus } from "../actions/question";
 
 export function* signOut() {
   yield takeEvery(SIGNOUT, function* () {
@@ -107,10 +108,12 @@ export function* signIn() {
             middleName: user.fathername,
             role: user.role,
             subjectName: user.subject_name,
-            subjectId: user.subject_id
+            subjectId: user.subject_id,
           },
         })
       );
+
+      yield put(setTestStatus(user.test_status));
 
       if (user.all_organization) {
         // yield put(setOrganization(user.all_organization));
@@ -136,10 +139,12 @@ export function* authorization() {
             middleName: user.fathername,
             role: user.role,
             subjectName: user.subject_name,
-            subjectId: user.subject_id
+            subjectId: user.subject_id,
           },
         })
       );
+
+      yield put(setTestStatus(user.test_status));
 
       if (user.all_organization) {
         // yield put(setOrganization(user.all_organization));

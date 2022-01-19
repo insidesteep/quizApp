@@ -1,9 +1,9 @@
 const dev = {
-  API_ENDPOINT_URL: "/",
+  API_ENDPOINT_URL: "https://pizzamizza.uz",
 };
 
 const prod = {
-  API_ENDPOINT_URL: "/",
+  API_ENDPOINT_URL: "https://pizzamizza.uz",
 };
 
 // const dev = {

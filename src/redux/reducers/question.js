@@ -1,15 +1,21 @@
 import {
   HIDE_LOADING_CREATE,
+  HIDE_LOADING_LAST_TEST,
   HIDE_LOADING_PREVIEW_QUESTIONS,
   HIDE_LOADING_QUESTION,
+  HIDE_LOADING_TEST_DATA,
   SET_PREVIEW_QUESTIONS,
   SET_QUESTION,
   SET_QUESTION_COUNT,
+  SET_TEST_DATA,
   SET_TEST_INFO_ID,
+  SET_TEST_STATUS,
   SHOW_LOADING_CREATE,
+  SHOW_LOADING_LAST_TEST,
   SHOW_LOADING_PREVIEW_QUESTIONS,
   SHOW_LOADING_QUESTION,
   SHOW_LOADING_QUESTION_COUNT,
+  SHOW_LOADING_TEST_DATA,
 } from "../constants/question";
 
 const initState = {
@@ -27,6 +33,13 @@ const initState = {
       test_info: [],
     },
     loading: false,
+  },
+
+  testData: {
+    data: null,
+    testStatus: null,
+    loading: false,
+    loadingLast: false,
   },
 };
 
@@ -66,6 +79,26 @@ const question = (state = initState, action) => {
         },
       };
 
+    case SET_TEST_DATA:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          data: action.payload,
+          loading: false,
+          loadingLast: false
+        },
+      };
+
+    case SET_TEST_STATUS:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          testStatus: action.payload,
+        },
+      };
+
     case SHOW_LOADING_QUESTION_COUNT:
       return {
         ...state,
@@ -96,6 +129,24 @@ const question = (state = initState, action) => {
         },
       };
 
+    case SHOW_LOADING_TEST_DATA:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          loading: true,
+        },
+      };
+
+    case SHOW_LOADING_LAST_TEST:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          loadingLast: true,
+        },
+      };
+
     case HIDE_LOADING_CREATE:
       return {
         ...state,
@@ -117,6 +168,23 @@ const question = (state = initState, action) => {
         preview: {
           ...state.preview,
           loading: false,
+        },
+      };
+    case HIDE_LOADING_TEST_DATA:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          loading: false,
+        },
+      };
+
+    case HIDE_LOADING_LAST_TEST:
+      return {
+        ...state,
+        testData: {
+          ...state.testData,
+          loadingLast: false,
         },
       };
 

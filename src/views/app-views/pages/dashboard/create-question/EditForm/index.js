@@ -52,7 +52,7 @@ const rules = {
 //   url: "https://user-images.githubusercontent.com/16330002/29263294-83b0c562-811b-11e7-9218-02d0b5b9097e.png",
 // }
 
-// const scrollToRef = (ref) => console.log(ref) || window.scrollTo(0, ref.current.textarea.scrollIntoView({ behavior: "smooth" }))   
+// const scrollToRef = (ref) => console.log(ref) || window.scrollTo(0, ref.current.textarea.scrollIntoView({ behavior: "smooth" }))
 
 const EditForm = ({ lang, questionNum }) => {
   const [imgList, setImgList] = useState([]);
@@ -122,9 +122,7 @@ const EditForm = ({ lang, questionNum }) => {
             uid: i,
             name: "",
             status: "done",
-            url: `${APP_PREFIX_PATH}/temp/${
-              questionData.data[`img_url_${i}`]
-            }`,
+            url: `${APP_PREFIX_PATH}/temp/${questionData.data[`img_url_${i}`]}`,
           });
         }
       }
@@ -133,7 +131,6 @@ const EditForm = ({ lang, questionNum }) => {
 
       setAnswerImg(answersImgList);
 
-      
       // scrollToRef(questionNameRef)
       // questionNameRef.current.focus()
     }
@@ -145,7 +142,6 @@ const EditForm = ({ lang, questionNum }) => {
 
   const onChangeAwnserImg = (answerNum, fileList) => {
     setAnswerImg({ ...answerImg, [answerNum]: fileList });
-    
   };
 
   const onFinish = () => {
@@ -174,7 +170,7 @@ const EditForm = ({ lang, questionNum }) => {
       <Form layout="vertical" form={form}>
         <Card title={`Savol №${questionNum}`}>
           <Form.Item name="question" rules={rules.question}>
-            <Input.TextArea rows={3} size="large" placeholder="Question"  />
+            <Input.TextArea rows={3} size="large" placeholder="Question" />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0 }}>
             <div className="answer">

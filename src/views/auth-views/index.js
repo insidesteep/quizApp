@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Loader from "../../components/Loader.js";
+import Loader from "../../components/Loader";
 // import Loading from "components/shared-components/Loading";
 import { AUTH_PREFIX_PATH } from "../../configs/AppConfig";
 

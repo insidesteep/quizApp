@@ -207,6 +207,11 @@ body {
   color: #fff !important;
 }
 
+.test .ant-radio-button-wrapper:hover {
+  background-color: #40a9ff !important;
+  color: #fff !important;
+}
+
 .test .ant-radio-button-wrapper span:last-child {
   width: 100%;
   display: flex;
@@ -233,6 +238,10 @@ body {
 }
 
 .test .ant-radio-button-wrapper-checked .test__answer {
+  border-color: #fff;
+}
+
+.test .ant-radio-button-wrapper:hover .test__answer {
   border-color: #fff;
 }
 

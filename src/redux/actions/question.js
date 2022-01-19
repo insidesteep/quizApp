@@ -15,6 +15,14 @@ import {
   SHOW_LOADING_PREVIEW_QUESTIONS,
   HIDE_LOADING_PREVIEW_QUESTIONS,
   FETCH_PREVIEW_QUESTIONS,
+  FETCH_START_TEST,
+  SET_TEST_DATA,
+  SHOW_LOADING_TEST_DATA,
+  HIDE_LOADING_TEST_DATA,
+  SET_TEST_STATUS,
+  SHOW_LOADING_LAST_TEST,
+  HIDE_LOADING_LAST_TEST,
+  FETCH_LAST_TEST,
 } from "../constants/question";
 
 export const fetchQuestionCount = (data) => {
@@ -28,6 +36,19 @@ export const fetchPreviewQuestions = (data) => {
   return {
     type: FETCH_PREVIEW_QUESTIONS,
     payload: data,
+  };
+};
+
+export const fetchStartTest = (data) => {
+  return {
+    type: FETCH_START_TEST,
+    payload: data,
+  };
+};
+
+export const fetchLastTest = () => {
+  return {
+    type: FETCH_LAST_TEST,
   };
 };
 
@@ -82,6 +103,20 @@ export const setPreviewQuestions = (questions) => {
   };
 };
 
+export const setTestData = (data) => {
+  return {
+    type: SET_TEST_DATA,
+    payload: data,
+  };
+};
+
+export const setTestStatus = (status) => {
+  return {
+    type: SET_TEST_STATUS,
+    payload: status,
+  };
+};
+
 export const showLoadingQuestionCount = () => {
   return {
     type: SHOW_LOADING_QUESTION_COUNT,
@@ -97,6 +132,18 @@ export const showLoadingCreate = () => {
 export const showLoadingPreviewQuestions = () => {
   return {
     type: SHOW_LOADING_PREVIEW_QUESTIONS,
+  };
+};
+
+export const showLoadingTestData = () => {
+  return {
+    type: SHOW_LOADING_TEST_DATA,
+  };
+};
+
+export const showLoadingLastTest = () => {
+  return {
+    type: SHOW_LOADING_LAST_TEST,
   };
 };
 
@@ -121,5 +168,17 @@ export const showLoadingQuestion = () => {
 export const hideLoadingQuestion = () => {
   return {
     type: HIDE_LOADING_QUESTION,
+  };
+};
+
+export const hideLoadingTestData = () => {
+  return {
+    type: HIDE_LOADING_TEST_DATA,
+  };
+};
+
+export const hideLoadingLastTest = () => {
+  return {
+    type: HIDE_LOADING_LAST_TEST,
   };
 };

@@ -2,19 +2,25 @@ import { message } from "antd";
 import { all, takeEvery, put, fork, call } from "redux-saga/effects";
 import {
   CREATE_QUESTION,
+  FETCH_LAST_TEST,
   FETCH_PREVIEW_QUESTIONS,
   FETCH_QUESTION_COUNT,
+  FETCH_START_TEST,
   GET_QUESTION,
   UPDATE_QUESTION,
 } from "../constants/question";
 import {
   hideLoadingCreate,
+  hideLoadingLastTest,
   hideLoadingPreviewQuestions,
   hideLoadingQuestion,
+  hideLoadingTestData,
   setPreviewQuestions,
   setQuestion,
   setQuestionCount,
+  setTestData,
   setTestInfoId,
+  setTestStatus,
 } from "../actions/question";
 
 import QuestionService from "../../services/QuestionService";
@@ -36,13 +42,39 @@ export function* fetchQuestionCount() {
   });
 }
 
+export function* fetchStartTest() {
+  yield takeEvery(FETCH_START_TEST, function* ({ payload }) {
+    try {
+      const { test_status, ...other } = yield call(
+        QuestionService.startTest,
+        payload
+      );
+
+      yield put(setTestData(other));
+      yield put(setTestStatus(test_status));
+    } catch (error) {
+      yield put(hideLoadingTestData());
+    }
+  });
+}
+
+export function* fetchLastTest() {
+  yield takeEvery(FETCH_LAST_TEST, function* () {
+    try {
+      const { test_status, ...other } = yield call(QuestionService.getLastTest);
+
+      yield put(setTestData(other));
+      yield put(setTestStatus(test_status));
+    } catch (error) {
+      yield put(hideLoadingLastTest());
+    }
+  });
+}
+
 export function* fetchPreviewQuestions() {
   yield takeEvery(FETCH_PREVIEW_QUESTIONS, function* ({ payload }) {
     try {
-      const questions = yield call(
-        QuestionService.getPreview,
-        payload
-      );
+      const questions = yield call(QuestionService.getPreview, payload);
 
       yield put(setPreviewQuestions(questions));
     } catch (error) {
@@ -298,6 +330,8 @@ export default function* rootSaga() {
     fork(createQuestion),
     fork(updateQuestion),
     fork(getQuestion),
-    fork(fetchPreviewQuestions)
+    fork(fetchPreviewQuestions),
+    fork(fetchStartTest),
+    fork(fetchLastTest),
   ]);
 }

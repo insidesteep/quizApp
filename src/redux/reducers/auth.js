@@ -52,7 +52,7 @@ const auth = (state = initState, action) => {
         showMessage: false,
       };
     case SIGNOUT:
-      localStorage.removeItem("auth_token")
+      localStorage.removeItem("auth_token");
 
       return {
         loading: false,
