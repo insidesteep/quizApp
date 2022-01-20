@@ -54,8 +54,19 @@
 
     "test.result.title": "Sizning natijangiz",
     "test.result.zoom": "Konferentsiyaga havola",
-    "test.result.fail": "Time is over. You didn't pass",
+    "test.result.fail": "Vaqt tugadi. Siz test sinovlaridan o’ta olmadingiz!",
+    "test.result.fail2": "Siz test sinovlaridan o’ta olmadingiz!",
+    "test.result.success": "Siz keyingi bosqichga o'tishingiz mumkin",
     "test.timer": " min. - qolgan vaqt",
-    "test.step": "25 dan "
+    "test.step": "25 dan {questionNum}-Savol",
+    "test.startButton": "Boshlash",
+    "test.nextButton": "Keyingisi",
+    "test.finishButton": "Yakunlash",
+    "test.ps":  "Test sinovi tilini tanlang",
+
+    "text.interactive.or": "yoki",
+    "text.interactive.copy": "Nusxalash",
+    "text.interactive.copied": "Nusxalandi"
+
 
 }

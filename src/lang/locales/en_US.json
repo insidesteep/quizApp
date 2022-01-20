@@ -54,7 +54,17 @@
 
     "test.result.title": "Your result",
     "test.result.zoom": "Link to the conference",
-    "test.result.fail": "Vaqt tugadi. Siz o'tmadingiz",
+    "test.result.fail": "Time is over. You failed the test!",
+    "test.result.fail2": "You failed the test!",
+    "test.result.success": "You can go to the next step",
     "test.timer": " mins - time taken",
-    "test.step": " of 25"
+    "test.step": "Question {questionNum} of 25",
+    "test.startButton": "Start",
+    "test.nextButton": "Next",
+    "test.finishButton": "Finish",
+    "test.ps":  "Select the test language.",
+
+    "text.interactive.or": "or",
+    "text.interactive.copy": "Copy",
+    "text.interactive.copied": "Copied"
 }

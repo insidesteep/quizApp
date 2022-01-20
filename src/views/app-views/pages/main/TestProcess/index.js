@@ -7,6 +7,8 @@ import {
   fetchNextTest,
 } from "../../../../../redux/actions/question";
 import { API_BASE_URL } from "../../../../../configs/AppConfig";
+import IntlMessage from "../../../../../components/IntlMessage";
+import AuthLang from "../../../../../configs/LangConfigs/auth";
 
 const { TabPane } = Tabs;
 
@@ -16,7 +18,10 @@ for (let i = 1; i <= 25; i++) {
   quzzAmount.push(i);
 }
 
-const TestProcess = () => {
+const setLocale = (isLocaleOn, localeKey, values = {}) =>
+  isLocaleOn ? <IntlMessage id={localeKey} values={values}/> : localeKey.toString();
+
+const TestProcess = ({ localization = true }) => {
   const [value, setValue] = useState(null);
   const { testData } = useSelector((state) => state.question);
   const dispatch = useDispatch();
@@ -72,10 +77,10 @@ const TestProcess = () => {
           <TabPane
             tab={q}
             key={q}
-            // disabled={
-            //   q < testData.data?.number_of_test ||
-            //   q > testData.data?.number_of_test
-            // }
+            disabled={
+              q < testData.data?.number_of_test ||
+              q > testData.data?.number_of_test
+            }
           >
             {testData.data && Object.keys(testData.data).length != 0 && (
               <Flex
@@ -83,7 +88,7 @@ const TestProcess = () => {
                 alignItems="center"
                 className="test__contain"
               >
-                <h3 style={{ margin: "2rem 0", color: "#414141" }}>
+                <h3 style={{ margin: "2rem 0", color: "#414141", textAlign: "center" }}>
                   {testData.data.test_info?.name}
                 </h3>
                 <Flex
@@ -95,19 +100,19 @@ const TestProcess = () => {
                   {testData.data?.test_info?.img_url_1 && (
                     <Image
                       width={150}
-                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_1}`}
+                      src={`/temp/${testData.data.test_info.img_url_1}`}
                     />
                   )}
                   {testData.data?.test_info?.img_url_2 && (
                     <Image
                       width={150}
-                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_2}`}
+                      src={`/temp/${testData.data.test_info.img_url_2}`}
                     />
                   )}
                   {testData.data?.test_info?.img_url_3 && (
                     <Image
                       width={150}
-                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_3}`}
+                      src={`/temp/${testData.data.test_info.img_url_3}`}
                     />
                   )}
                 </Flex>
@@ -142,7 +147,9 @@ const TestProcess = () => {
                       size="large"
                       onClick={handleNextTab}
                     >
-                      {+tab === 25 ? "Finish" : "Next"}
+                      {+tab === 25
+                        ? setLocale(localization, AuthLang.test.button.finish)
+                        : setLocale(localization, AuthLang.test.button.next)}
                     </Button>
                   </Tooltip>
                 </div>

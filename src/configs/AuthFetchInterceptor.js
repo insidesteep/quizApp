@@ -56,7 +56,9 @@ service.interceptors.response.use(
       //"The page you were trying to access cannot be loaded until you are logged in";
       localStorage.removeItem(AUTH_TOKEN);
 
+      console.log(401, history)
       history.push(ENTRY_ROUTE);
+    
       // window.location.reload();
 
     }

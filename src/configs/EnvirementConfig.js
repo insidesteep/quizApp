@@ -1,9 +1,9 @@
 const dev = {
-  API_ENDPOINT_URL: "https://pizzamizza.uz",
+  API_ENDPOINT_URL: "/",
 };
 
 const prod = {
-  API_ENDPOINT_URL: "https://pizzamizza.uz",
+  API_ENDPOINT_URL: "/",
 };
 
 // const dev = {
@@ -15,9 +15,7 @@ const prod = {
 // };
 
 
-const test = {
-  API_ENDPOINT_URL: "https://api.test.com",
-};
+
 
 const getEnv = () => {
   switch (process.env.NODE_ENV) {
@@ -25,8 +23,6 @@ const getEnv = () => {
       return dev;
     case "production":
       return prod;
-    case "test":
-      return test;
     default:
       break;
   }

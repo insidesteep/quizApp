@@ -13,19 +13,24 @@ import {
   Image,
   Divider,
   Spin,
-  Alert
+  Alert,
 } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Flex from "../../../../../components/Flex";
+import IntlMessage from "../../../../../components/IntlMessage";
 import {
   showLoadingTestData,
   fetchStartTest,
 } from "../../../../../redux/actions/question";
+import AuthLang from "../../../../../configs/LangConfigs/auth";
 
 const { Title, Paragraph } = Typography;
 
-const TestIntro = () => {
+const setLocale = (isLocaleOn, localeKey) =>
+  isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
+
+const TestIntro = ({ localization = true }) => {
   const [lang, setLang] = useState(1);
   const { userInfo } = useSelector((state) => state.auth);
   const { testData } = useSelector((state) => state.question);
@@ -48,19 +53,19 @@ const TestIntro = () => {
   return (
     <div className="test__intro">
       <Title style={{ textAlign: "center", marginBottom: "3rem" }}>
-        Olimpiada - 2022
+        {setLocale(localization, AuthLang.brandName)}
       </Title>
       <Spin spinning={testData.loading}>
         <Card>
           <Alert
-            description="Choose your testing language and see how many of the 25 questions
-            you can answer correctly!"
+            description={setLocale(localization, AuthLang.test.ps)}
             type="warning"
             showIcon
           />
-
+         
           <Paragraph style={{ padding: "0.5rem 0" }}>
-            Subject: {userInfo.subjectName}
+            {setLocale(localization, AuthLang.registration.subject)}:{" "}
+            {userInfo.subjectName}
           </Paragraph>
           <Form layout="vertical" size="large">
             <Form.Item>
@@ -88,7 +93,7 @@ const TestIntro = () => {
             <Form.Item>
               <Flex justifyContent="center">
                 <Button type="primary" onClick={onStart}>
-                  Start
+                  {setLocale(localization, AuthLang.test.button.start)}
                 </Button>
               </Flex>
             </Form.Item>

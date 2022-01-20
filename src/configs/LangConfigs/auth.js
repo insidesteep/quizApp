@@ -65,10 +65,24 @@ const auth = {
       title: "test.result.title",
       zoom: "test.result.zoom",
       fail: "test.result.fail",
+      fail2: "test.result.fail2",
+      success: "test.result.success"
     },
     timer: "test.timer",
     step: "test.step",
+    ps: "test.ps",
+    button: {
+      start: "test.startButton",
+      finish: "test.finishButton",
+      next: "test.nextButton"
+    }
   },
+
+  interactive: {
+    or: "text.interactive.or",
+    copy: "text.interactive.copy",
+    copied: "text.interactive.copied"
+  }
 };
 
 export default auth;

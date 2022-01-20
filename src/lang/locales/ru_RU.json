@@ -55,6 +55,17 @@
 
     "test.result.title": "Ваш результат",
     "test.result.zoom": "Ссылка на конференцию",
-    "test.timer": " мин. - затраченное время",
-    "test.step": " из 25"
+    "test.result.fail": "Время вышло. Вы провалили тестовое испытание!",
+    "test.result.success": "Можете перейти на следующий этап",
+    "test.result.fail2": "Вы провалили тестовое испытание!",
+    "test.timer": " мин. - оставшееся время",
+    "test.step": "Вопрос {questionNum} из 25",
+    "test.startButton": "Начать",
+    "test.nextButton": "Следующий",
+    "test.finishButton": "Завершить",
+    "test.ps":  "Выберите язык тестирования",
+
+    "text.interactive.or": "или",
+    "text.interactive.copy": "Скопировать",
+    "text.interactive.copied": "Скопировано"
 }

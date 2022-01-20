@@ -62,11 +62,11 @@ export const Views = (props) => {
 
   useEffect(() => {
     if (token !== null && userInfo.role) {
-      if (userInfo.role === "2") {
+      if (userInfo.role == 2) {
         history.push(`${APP_PREFIX_PATH}/dashboard`);
       }
 
-      if (userInfo.role === "1") {
+      if (userInfo.role == 1) {
         history.push(`${APP_PREFIX_PATH}`);
       }
     }

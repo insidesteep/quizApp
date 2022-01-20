@@ -22,8 +22,12 @@ import AuthLang from "../../../../configs/LangConfigs/auth";
 const { Header } = Layout;
 const { Text } = Typography;
 
-const setLocale = (isLocaleOn, localeKey) =>
-  isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
+const setLocale = (isLocaleOn, localeKey, values = {}) =>
+  isLocaleOn ? (
+    <IntlMessage id={localeKey} values={values} />
+  ) : (
+    localeKey.toString()
+  );
 
 const MainPage = ({ localization = true }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -73,13 +77,16 @@ const MainPage = ({ localization = true }) => {
           {userInfo && testData.testStatus == 1 && testData.data && (
             <>
               <p className="test__question-count">
-                {screens.md && "Question"}{" "}
+                {" "}
                 {testData.data && testData.data.number_of_test && (
                   <>
-                    <span style={{ color: "#40a9ff" }}>
-                      {testData.data.number_of_test}
-                    </span>{" "}
-                    {setLocale(localization, AuthLang.test.step)}
+                    {setLocale(localization, AuthLang.test.step, {
+                      questionNum: (
+                        <span style={{ color: `#40a9ff` }}>
+                          {testData.data.number_of_test}
+                        </span>
+                      ),
+                    })}
                   </>
                 )}
               </p>

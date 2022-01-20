@@ -1,5 +1,5 @@
-import { Progress, Card, Typography, Alert, Result } from "antd";
-import { FrownOutlined } from "@ant-design/icons";
+import { Progress, Card, Typography, Alert, Result, Divider } from "antd";
+import { FrownOutlined, IdcardTwoTone, LockTwoTone } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import Flex from "../../../../../components/Flex";
 import IntlMessage from "../../../../../components/IntlMessage";
@@ -26,7 +26,7 @@ const TestResult = ({ localization = true }) => {
       }}
     >
       <Flex flexDirection="column" alignItems="center">
-        <Title level={2} style={{ color: "#69c0ff", marginBottom: "2rem" }}>
+        <Title level={3} style={{ color: "#69c0ff", marginBottom: "2rem" }}>
           {setLocale(localization, AuthLang.test.result.title)}
         </Title>
         {testData.testStatus == 2 && testData.data?.test_result && (
@@ -41,31 +41,90 @@ const TestResult = ({ localization = true }) => {
               percent={(testData.data.test_result.correctly * 100) / 25}
               format={() => `${testData.data.test_result.correctly}/25`}
             />
-            {testData.data.zoom_url && userInfo.subjectId != 2 ? (
-              <Flex
-                style={{ marginTop: "2rem" }}
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Link
-                  href={testData.data.zoom_url.split("\r\n\r\n")[0]}
-                  target="_blank"
-                >
-                  <img
-                    src="/img/zoom.svg"
-                    width={25}
-                    style={{ marginRight: "0.5rem" }}
-                  />{" "}
-                  {setLocale(localization, AuthLang.test.result.zoom)}
-                </Link>
-              </Flex>
+
+            {testData.data.zoom_url ? (
+              userInfo.subjectId != 2 ? (
+                <>
+                  <Alert
+                    style={{ marginTop: "1rem" }}
+                    message={setLocale(
+                      localization,
+                      AuthLang.test.result.success
+                    )}
+                    type="success"
+                    showIcon
+                  />
+                  <Flex
+                    style={{ marginTop: "2rem" }}
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Link
+                      href={testData.data.zoom_url.link}
+                      target="_blank"
+                      copyable={{
+                        text: testData.data.zoom_url.link,
+                        tooltips: [
+                          setLocale(localization, AuthLang.interactive.copy),
+                          setLocale(localization, AuthLang.interactive.copied),
+                        ],
+                      }}
+                    >
+                      <img
+                        src="/img/zoom.svg"
+                        width={25}
+                        style={{ marginRight: "0.5rem" }}
+                      />{" "}
+                      {setLocale(localization, AuthLang.test.result.zoom)}
+                    </Link>
+                    <div style={{ width: "50%" }}>
+                      <Divider>
+                        {setLocale(localization, AuthLang.interactive.or)}
+                      </Divider>
+                      <Paragraph
+                        copyable={{
+                          text: testData.data.zoom_url.identifier,
+                          tooltips: [
+                            setLocale(localization, AuthLang.interactive.copy),
+                            setLocale(
+                              localization,
+                              AuthLang.interactive.copied
+                            ),
+                          ],
+                        }}
+                      >
+                        <IdcardTwoTone /> {testData.data.zoom_url.identifier}
+                      </Paragraph>
+                      <Paragraph
+                        copyable={{
+                          text: testData.data.zoom_url.code,
+                          tooltips: [
+                            setLocale(localization, AuthLang.interactive.copy),
+                            setLocale(
+                              localization,
+                              AuthLang.interactive.copied
+                            ),
+                          ],
+                        }}
+                      >
+                        <LockTwoTone /> {testData.data.zoom_url.code}
+                      </Paragraph>
+                    </div>
+                  </Flex>
+                </>
+              ) : (
+                <Alert
+                  style={{ marginTop: "2rem" }}
+                  type="info"
+                  description={testData.data.zoom_url.link}
+                  showIcon
+                />
+              )
             ) : (
-              <Alert
-                style={{ marginTop: "2rem" }}
-                type="info"
-                description={testData.data.zoom_url.link}
-                showIcon
-              />
+              <Paragraph style={{ margin: "1.5rem" }}>
+                {setLocale(localization, AuthLang.test.result.fail2)}
+              </Paragraph>
             )}
           </>
         )}
