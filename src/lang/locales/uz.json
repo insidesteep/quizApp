@@ -48,5 +48,14 @@
     "registration.successful.title": "Siz muvaffaqiyatli ro'yxatdan o'tdingiz",
     "registration.successful.subtitle": "Siz, “Abu Ali ibn Sino ta'limotidan – uchinchi renesansgacha”, 2022 yil 21 yanvarda bo'lib o'tadigan, tibbiyot oliy oquv yurtlari bo'yicha, xalqaro talabalar onlayn olimpiadasi, ishtirokchisi bo'ldingiz",
     "registration.successful.login": "Loginingiz",
-    "registration.successful.password": "Parolingiz"
+    "registration.successful.password": "Parolingiz",
+
+    "test.start": "Test boshlanish kuni 21-yanvar Toshkent vaqti UTC (+5) bilan 11:00 da boshlanadi va 12:00 da tugaydi! Testni yechish uchun beriladigan vaqt 25 daqiqa!",
+
+    "test.result.title": "Sizning natijangiz",
+    "test.result.zoom": "Konferentsiyaga havola",
+    "test.result.fail": "Time is over. You didn't pass",
+    "test.timer": " min. - qolgan vaqt",
+    "test.step": "25 dan "
+
 }

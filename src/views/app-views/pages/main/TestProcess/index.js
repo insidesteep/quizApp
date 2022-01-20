@@ -1,4 +1,4 @@
-import { Tabs, Col, Space, Radio, Button, Tooltip } from "antd";
+import { Tabs, Col, Space, Radio, Button, Tooltip, Image } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Flex from "../../../../../components/Flex";
@@ -6,6 +6,7 @@ import {
   showLoadingNextTest,
   fetchNextTest,
 } from "../../../../../redux/actions/question";
+import { API_BASE_URL } from "../../../../../configs/AppConfig";
 
 const { TabPane } = Tabs;
 
@@ -16,14 +17,17 @@ for (let i = 1; i <= 25; i++) {
 }
 
 const TestProcess = () => {
-  const [tab, setTab] = useState("1");
   const [value, setValue] = useState(null);
   const { testData } = useSelector((state) => state.question);
   const dispatch = useDispatch();
+  const [tab, setTab] = useState("1");
 
+  useEffect(() => {
+    if (testData.data?.number_of_test) {
+      setTab("" + testData.data.number_of_test);
+    }
+  }, [testData.data]);
 
-
-  
   const handleNextTab = () => {
     const cb = () => {
       setTab("" + (+tab + 1));
@@ -31,7 +35,6 @@ const TestProcess = () => {
     };
 
     if (value) {
-      console.log(5555)
       dispatch(showLoadingNextTest());
       dispatch(
         fetchNextTest(
@@ -49,23 +52,71 @@ const TestProcess = () => {
 
   return (
     <Col span={24}>
-      <Tabs activeKey={tab} centered style={{ padding: "0.5rem" }}>
+      <Tabs
+        activeKey={tab}
+        centered
+        style={{ padding: "0.5rem" }}
+        animated
+        renderTabBar={(props, DefaultTabBar) => (
+          <DefaultTabBar
+            {...props}
+            className={
+              props.activeKey < testData.data?.number_of_test
+                ? "question__solved"
+                : ""
+            }
+          />
+        )}
+      >
         {quzzAmount.map((q) => (
-          <TabPane tab={q} key={q}>
+          <TabPane
+            tab={q}
+            key={q}
+            // disabled={
+            //   q < testData.data?.number_of_test ||
+            //   q > testData.data?.number_of_test
+            // }
+          >
             {testData.data && Object.keys(testData.data).length != 0 && (
               <Flex
                 flexDirection="column"
                 alignItems="center"
                 className="test__contain"
               >
-                <h3 style={{ margin: "3rem 0", color: "#414141" }}>
-                  {testData.data.test_info.name}
+                <h3 style={{ margin: "2rem 0", color: "#414141" }}>
+                  {testData.data.test_info?.name}
                 </h3>
+                <Flex
+                  style={{ marginBottom: "2rem" }}
+                  flexDirection="column"
+                  alignItems="center"
+                  className="question__preview-images"
+                >
+                  {testData.data?.test_info?.img_url_1 && (
+                    <Image
+                      width={150}
+                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_1}`}
+                    />
+                  )}
+                  {testData.data?.test_info?.img_url_2 && (
+                    <Image
+                      width={150}
+                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_2}`}
+                    />
+                  )}
+                  {testData.data?.test_info?.img_url_3 && (
+                    <Image
+                      width={150}
+                      src={`${API_BASE_URL}/temp/${testData.data.test_info.img_url_3}`}
+                    />
+                  )}
+                </Flex>
+
                 <Radio.Group optionType="button" onChange={handleChangeAnswer}>
                   <Space direction="vertical">
                     <Radio.Button value={1}>
                       <div className="test__answer">A</div>
-                      {testData.data.test_info.answer_1}
+                      <div>{testData.data.test_info.answer_1}</div>
                     </Radio.Button>{" "}
                     <Radio.Button value={2}>
                       <div className="test__answer">B</div>

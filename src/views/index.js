@@ -79,7 +79,7 @@ export const Views = (props) => {
 
   //   useBodyClass(`dir-${direction}`);
 
-  console.log("VIEWS", token);
+
   return (
     <IntlProvider
       locale={currentAppLocale.locale}

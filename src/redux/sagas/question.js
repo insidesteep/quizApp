@@ -65,12 +65,15 @@ export function* fetchLastTest() {
     try {
       const { test_status, ...other } = yield call(QuestionService.getLastTest);
 
-      if(test_status == 3) {
-        yield put(setTestData(null));
-      }else {
-        yield put(setTestData(other)); 
-      }
+      console.log("Next", test_status, other);
+
       yield put(setTestStatus(test_status));
+
+      if (test_status == 3) {
+        yield put(setTestData(null));
+      } else {
+        yield put(setTestData(other));
+      }
     } catch (error) {
       yield put(hideLoadingLastTest());
     }
@@ -78,19 +81,25 @@ export function* fetchLastTest() {
 }
 
 export function* fetchNextTest() {
-  yield takeEvery(FETCH_NEXT_TEST, function* ({payload}) {
+  yield takeEvery(FETCH_NEXT_TEST, function* ({ payload }) {
     try {
-      const {data, cb} = payload
+      const { data, cb } = payload;
 
-      const { test_status, ...other } = yield call(QuestionService.getNextTest, data);
+      const { test_status, ...other } = yield call(
+        QuestionService.getNextTest,
+        data
+      );
 
-      if(test_status == 3) {
-        yield put(setTestData(null));
-      }else {
-        yield put(setTestData(other)); 
-      }
+      console.log("Next", test_status, other);
+
       yield put(setTestStatus(test_status));
-      cb()
+
+      if (test_status == 3) {
+        yield put(setTestData(null));
+      } else {
+        yield put(setTestData(other));
+      }
+      cb();
     } catch (error) {
       yield put(hideLoadingNextTest());
     }
@@ -359,6 +368,6 @@ export default function* rootSaga() {
     fork(fetchPreviewQuestions),
     fork(fetchStartTest),
     fork(fetchLastTest),
-    fork(fetchNextTest)
+    fork(fetchNextTest),
   ]);
 }

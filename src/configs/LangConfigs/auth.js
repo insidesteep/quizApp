@@ -1,5 +1,6 @@
 const auth = {
   brandName: "brandName",
+  testStart: "test.start",
   switchAuth: {
     login: "switchAuth.login",
     registration: "switchAuth.registration",
@@ -57,6 +58,16 @@ const auth = {
       login: "registration.successful.login",
       password: "registration.successful.password",
     },
+  },
+
+  test: {
+    result: {
+      title: "test.result.title",
+      zoom: "test.result.zoom",
+      fail: "test.result.fail",
+    },
+    timer: "test.timer",
+    step: "test.step",
   },
 };
 

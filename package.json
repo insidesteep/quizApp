@@ -1,7 +1,7 @@
 {
   "name": "quizapp",
   "version": "0.1.0",
-  "homepage": "https://2022.bsmi.uz",
+  "homepage": "https://olimpiada.bsmi.uz",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

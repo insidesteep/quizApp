@@ -329,3 +329,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.ant-tabs-tab-btn .question__solved {
+  color: #fa8c16;
+}

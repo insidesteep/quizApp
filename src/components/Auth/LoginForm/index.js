@@ -14,7 +14,6 @@ const LoginForm = ({ localization = true, intl }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-
   const onFinish = () => {
     form
       .validateFields()

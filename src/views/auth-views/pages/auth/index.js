@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { Layout, Card, Row, Col, Typography, Radio, Tooltip } from "antd";
+import {
+  Layout,
+  Card,
+  Row,
+  Col,
+  Typography,
+  Radio,
+  Tooltip,
+  Result,
+} from "antd";
 import { PhoneTwoTone } from "@ant-design/icons";
 import Flex from "../../../../components/Flex";
 import RegisterForm from "../../../../components/Auth/RegisterForm";
@@ -10,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { onLocaleChange } from "../../../../redux/actions/locale";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { APP_PREFIX_PATH } from "../../../../configs/AppConfig";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 const { Sider, Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
 
@@ -21,7 +31,7 @@ const AuthPage = ({ localization = true }) => {
   const { localeValue } = useSelector((state) => state.locale);
   const { token, userInfo } = useSelector((state) => state.auth);
   const history = useHistory();
-
+  const screens = useBreakpoint();
   const dispatch = useDispatch();
 
   const handleChangeAuthState = (e) => {
@@ -35,7 +45,33 @@ const AuthPage = ({ localization = true }) => {
   return (
     <div className="auth-wrapper">
       <Row style={{ height: "100%" }}>
-        <Col xs={0} md={12} lg={16}></Col>
+        <Col
+          xs={0}
+          md={12}
+          lg={16}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              width: !screens.xl ? "90%" : "50%",
+              margin: "1rem 0",
+              borderRadius: "1rem",
+            }}
+          >
+            <Result
+              title={
+                <p style={{ fontSize: "1rem" }}>
+                  {setLocale(localization, authLang.testStart)}
+                </p>
+              }
+            />
+          </div>
+        </Col>
         <Col
           xs={24}
           md={12}

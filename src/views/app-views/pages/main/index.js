@@ -15,25 +15,32 @@ import {
 } from "../../../../redux/actions/question";
 import moment from "moment";
 import Timer from "../../../../components/Timer";
+import TestResult from "./TestResult";
+import IntlMessage from "../../../../components/IntlMessage";
+import AuthLang from "../../../../configs/LangConfigs/auth";
 
 const { Header } = Layout;
 const { Text } = Typography;
 
-const MainPage = () => {
+const setLocale = (isLocaleOn, localeKey) =>
+  isLocaleOn ? <IntlMessage id={localeKey} /> : localeKey.toString();
+
+const MainPage = ({ localization = true }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const { testData } = useSelector((state) => state.question);
   const dispatch = useDispatch();
   const screens = useBreakpoint();
 
   useEffect(() => {
-    if (testData.testStatus == 1) {
-      console.log(2);
+    if (
+      testData.testStatus == 1 ||
+      testData.testStatus == 2 ||
+      testData.testStatus == 3
+    ) {
       dispatch(showLoadingLastTest());
       dispatch(fetchLastTest());
     }
   }, [testData.testStatus]);
-
-
 
   const logOut = () => {
     dispatch(signOut());
@@ -72,11 +79,15 @@ const MainPage = () => {
                     <span style={{ color: "#40a9ff" }}>
                       {testData.data.number_of_test}
                     </span>{" "}
-                    of 25
+                    {setLocale(localization, AuthLang.test.step)}
                   </>
                 )}
               </p>
-              <Timer timestamp={testData.data.finish_timestamp - testData.data.now_timestamp}/>
+              <Timer
+                timestamp={
+                  testData.data.finish_timestamp - testData.data.now_timestamp
+                }
+              />
             </>
           )}
         </Flex>
@@ -84,11 +95,9 @@ const MainPage = () => {
       <Row align="center" style={{ height: "100%" }}>
         {userInfo && testData.testStatus == 0 && <TestIntro />}
         {userInfo && testData.testStatus == 1 && <TestProcess />}
-        {userInfo && testData.testStatus == 2 && (
-          <Progress type="circle" percent={50} format={() => "2 / 20"} />
+        {userInfo && (testData.testStatus == 2 || testData.testStatus == 3) && (
+          <TestResult />
         )}
-
-        {userInfo && testData.testStatus == 3 && <h1>Nedoreshyon</h1>}
       </Row>
     </div>
   );

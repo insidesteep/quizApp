@@ -48,5 +48,13 @@
     "registration.successful.title": "You have successfully registered",
     "registration.successful.subtitle": "You have become a participant of the International Online Student Olympiad for Medical University Students 'From the Teachings of Abu Ali ibn Sino to the Third Renaissance', which will be held on January 21, 2022",
     "registration.successful.login": "Your login",
-    "registration.successful.password": "Your password"
+    "registration.successful.password": "Your password",
+
+    "test.start": "The test starts on January 21, Tashkent time UTC(+5). Test will be held from 11:00 to 12:00. You will be given 25 minutes for solving test.",
+
+    "test.result.title": "Your result",
+    "test.result.zoom": "Link to the conference",
+    "test.result.fail": "Vaqt tugadi. Siz o'tmadingiz",
+    "test.timer": " mins - time taken",
+    "test.step": " of 25"
 }

@@ -13,6 +13,7 @@ import {
   Image,
   Divider,
   Spin,
+  Alert
 } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,14 +52,12 @@ const TestIntro = () => {
       </Title>
       <Spin spinning={testData.loading}>
         <Card>
-          <Title
+          <Alert
+            description="Choose your testing language and see how many of the 25 questions
+            you can answer correctly!"
             type="warning"
-            level={5}
-            style={{ margin: "2rem 0", textAlign: "center" }}
-          >
-            Choose your testing language and see how many of the 25 questions
-            you can answer correctly!
-          </Title>
+            showIcon
+          />
 
           <Paragraph style={{ padding: "0.5rem 0" }}>
             Subject: {userInfo.subjectName}
