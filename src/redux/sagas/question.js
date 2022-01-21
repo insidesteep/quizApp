@@ -74,6 +74,8 @@ export function* fetchLastTest() {
       } else {
         yield put(setTestData(other));
       }
+
+      
     } catch (error) {
       yield put(hideLoadingLastTest());
     }
@@ -100,6 +102,7 @@ export function* fetchNextTest() {
         yield put(setTestData(other));
       }
       cb();
+      window.location.reload()
     } catch (error) {
       yield put(hideLoadingNextTest());
     }

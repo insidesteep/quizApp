@@ -123,7 +123,7 @@ const AuthPage = ({ localization = true }) => {
               </Title>
             </Col>
           </Row>
-          <Row gutter={5}>
+          {/* <Row gutter={5}>
             <Col>
               <Radio.Group
                 defaultValue="login"
@@ -134,12 +134,12 @@ const AuthPage = ({ localization = true }) => {
                   {setLocale(localization, authLang.switchAuth.login)}
                 </Radio.Button>
 
-                {/* <Radio.Button value="registration">
+                <Radio.Button value="registration">
                   {setLocale(localization, authLang.switchAuth.registration)}
-                </Radio.Button> */}
+                </Radio.Button>
               </Radio.Group>
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Col>
               <LoginForm />

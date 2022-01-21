@@ -247,6 +247,7 @@ body {
 
 .test .ant-layout-header {
   background-color: #fff !important;
+  line-height: 18px;
 }
 
 .test p {
@@ -332,4 +333,12 @@ body {
 
 .ant-tabs-tab-btn .question__solved {
   color: #fa8c16;
+}
+
+.not-copy {
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }

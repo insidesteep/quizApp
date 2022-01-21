@@ -60,13 +60,24 @@ const MainPage = ({ localization = true }) => {
         <Flex alignItems="center" justifyContent="space-between">
           <div style={{ display: "flex", alignItems: "center" }}>
             <Avatar size="large" style={{ marginRight: "0.5rem" }} />
-            <Text style={{ color: "#c8c8ca", fontWeight: 500 }}>{`${
-              userInfo.lastName
-            }.${userInfo.firstName
-              .slice(0, 1)
-              .toUpperCase()}.${userInfo.middleName
-              .slice(0, 1)
-              .toUpperCase()}`}</Text>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ color: "#c8c8ca", fontWeight: 500 }}>{`${
+                userInfo.lastName
+              }.${userInfo.firstName
+                .slice(0, 1)
+                .toUpperCase()}.${userInfo.middleName
+                .slice(0, 1)
+                .toUpperCase()}`}</Text>
+              <Text style={{ fontSize: "12px", color: "#fa8c16" }}>
+                {userInfo.subjectName}
+              </Text>
+            </div>
           </div>
 
           {userInfo &&

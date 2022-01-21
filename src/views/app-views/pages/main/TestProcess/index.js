@@ -19,7 +19,11 @@ for (let i = 1; i <= 25; i++) {
 }
 
 const setLocale = (isLocaleOn, localeKey, values = {}) =>
-  isLocaleOn ? <IntlMessage id={localeKey} values={values}/> : localeKey.toString();
+  isLocaleOn ? (
+    <IntlMessage id={localeKey} values={values} />
+  ) : (
+    localeKey.toString()
+  );
 
 const TestProcess = ({ localization = true }) => {
   const [value, setValue] = useState(null);
@@ -56,7 +60,7 @@ const TestProcess = ({ localization = true }) => {
   const handleChangeAnswer = (e) => setValue(e.target.value);
 
   return (
-    <Col span={24}>
+    <Col span={24} className="not-copy">
       <Tabs
         activeKey={tab}
         centered
@@ -88,7 +92,13 @@ const TestProcess = ({ localization = true }) => {
                 alignItems="center"
                 className="test__contain"
               >
-                <h3 style={{ margin: "2rem 0", color: "#414141", textAlign: "center" }}>
+                <h3
+                  style={{
+                    margin: "2rem 0",
+                    color: "#414141",
+                    textAlign: "center",
+                  }}
+                >
                   {testData.data.test_info?.name}
                 </h3>
                 <Flex
